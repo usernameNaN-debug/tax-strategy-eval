@@ -1,6 +1,6 @@
 {
   "name": "tax-strategy-eval",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An agentic benchmark for household tax strategy, with a pixel replay of every rollout.",
   "type": "module",
   "private": true,

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 — 2026-11-23
+
+- Header no longer wraps the site name on phones.
+
 ## 0.1.0 — 2026-11-23
 
 First public prototype.
