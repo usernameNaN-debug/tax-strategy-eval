@@ -1,0 +1,16 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>big</title>
+<style>body{margin:16px;background:#fff} canvas{image-rendering:pixelated;width:1440px}</style>
+</head><body>
+<canvas id="c" width="288" height="96"></canvas>
+<script type="module">
+import { Raster } from '../app/pixel/gfx.js';
+import { drawBig } from '../app/pixel/big.js';
+import { LOOKS, look } from '../app/pixel/person.js';
+const r = new Raster(288, 96);
+const poses = ['stand','walk','walk','walk','read','type','phone','reach','crank','carry','shrug','point'];
+poses.forEach((p, i) => drawBig(r, LOOKS.agent, 2 + i * 24, 2, 1, p, i - 1, { stack: 6 }));
+const L2 = [LOOKS.secretary, LOOKS.coworker, LOOKS.partner, look({head:'long',hair:'black',skin:'deep',top:'scrubs',bottom:'scrubs',shoes:'white'}), look({head:'short',hair:'grey',skin:'light',top:'plum',bottom:'khaki',shoes:'brown'})];
+L2.forEach((L, i) => { drawBig(r, L, 2 + i * 50, 50, 1, 'stand', 0, {}); drawBig(r, L, 26 + i * 50, 50, -1, 'walk', 1, { stack: 4 }); });
+document.getElementById('c').getContext('2d').putImageData(r.img, 0, 0);
+</script></body></html>

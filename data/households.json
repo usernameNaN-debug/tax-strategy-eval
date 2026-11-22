@@ -1,0 +1,2681 @@
+{
+ "tax_year": 2025,
+ "now": "2026-03",
+ "constants": {
+  "std_deduction": {
+   "single": 15750,
+   "mfj": 31500,
+   "hoh": 23625,
+   "source": "OBBBA §70102 (IRC §63(c)(7)); Rev. Proc. 2025-32 https://www.irs.gov/pub/irs-drop/rp-25-32.pdf §3.01 (replaces Rev. Proc. 2024-40 §2.15(1))"
+  },
+  "additional_std_deduction_65_or_blind": {
+   "unmarried": 2000,
+   "married_per_person": 1600,
+   "source": "Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.15(3)"
+  },
+  "brackets": {
+   "single": [
+    [
+     11925,
+     0.1
+    ],
+    [
+     48475,
+     0.12
+    ],
+    [
+     103350,
+     0.22
+    ],
+    [
+     197300,
+     0.24
+    ],
+    [
+     250525,
+     0.32
+    ],
+    [
+     626350,
+     0.35
+    ],
+    [
+     null,
+     0.37
+    ]
+   ],
+   "mfj": [
+    [
+     23850,
+     0.1
+    ],
+    [
+     96950,
+     0.12
+    ],
+    [
+     206700,
+     0.22
+    ],
+    [
+     394600,
+     0.24
+    ],
+    [
+     501050,
+     0.32
+    ],
+    [
+     751600,
+     0.35
+    ],
+    [
+     null,
+     0.37
+    ]
+   ],
+   "hoh": [
+    [
+     17000,
+     0.1
+    ],
+    [
+     64850,
+     0.12
+    ],
+    [
+     103350,
+     0.22
+    ],
+    [
+     197300,
+     0.24
+    ],
+    [
+     250500,
+     0.32
+    ],
+    [
+     626350,
+     0.35
+    ],
+    [
+     null,
+     0.37
+    ]
+   ],
+   "note": "upper bound of taxable income for each rate; null = no upper bound",
+   "source": "Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.01"
+  },
+  "ltcg_0pct_top": {
+   "single": 48350,
+   "mfj": 96700,
+   "hoh": 64750,
+   "source": "Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.03"
+  },
+  "ltcg_15pct_top": {
+   "single": 533400,
+   "mfj": 600050,
+   "hoh": 566700,
+   "source": "Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.03"
+  },
+  "senior_deduction": {
+   "per_eligible_person": 6000,
+   "phaseout_start_magi": {
+    "single": 75000,
+    "hoh": 75000,
+    "mfj": 150000
+   },
+   "phaseout_rate": 0.06,
+   "rules": "age 65 by 12/31 (born before 1/2/1961); valid SSN; MFJ required if married; itemizers and non-itemizers; below-the-line (does not reduce AGI); tax years 2025-2028",
+   "source": "2025 Schedule 1-A (Form 1040) https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf; IRS FS-2025-03 https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors"
+  },
+  "overtime_deduction": {
+   "cap": {
+    "single": 12500,
+    "hoh": 12500,
+    "mfj": 25000
+   },
+   "phaseout_start_magi": {
+    "single": 150000,
+    "hoh": 150000,
+    "mfj": 300000
+   },
+   "phaseout": "$100 per full $1,000 of MAGI over start (rounded down)",
+   "qualified_amount": "only the FLSA-required premium above the regular rate (the 'half' of time-and-a-half); not state-law, union-contract, holiday or weekend premiums. 2025 W-2s need not break it out: use 1/3 of total 1.5x OT pay or 1/4 of total 2x OT pay (Notice 2025-69 methods B and D)",
+   "rules": "SSN; MFJ if married; 2025-2028; below-the-line",
+   "source": "2025 Schedule 1-A (Form 1040) https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf; IRS FS-2025-03 https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors; Notice 2025-69 https://www.irs.gov/pub/irs-drop/n-25-69.pdf"
+  },
+  "tips_deduction": {
+   "cap": 25000,
+   "phaseout_start_magi": {
+    "single": 150000,
+    "hoh": 150000,
+    "mfj": 300000
+   },
+   "phaseout": "$100 per full $1,000 of MAGI over start (rounded down)",
+   "rules": "voluntary cash/charged tips in an occupation on Treasury's tipped-occupations list (includes barbers, hairdressers, hairstylists, cosmetologists); employees may use W-2 box 7 for 2025; SSN; MFJ if married; 2025-2028",
+   "source": "2025 Schedule 1-A (Form 1040) https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf; IRS FS-2025-03 https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors; Notice 2025-69; Treasury tipped-occupations list https://home.treasury.gov/system/files/136/Tipped-Occupations-Detailed-8-27-2025.pdf"
+  },
+  "car_loan_interest_deduction": {
+   "cap": 10000,
+   "phaseout_start_magi": {
+    "single": 100000,
+    "hoh": 100000,
+    "mfj": 200000
+   },
+   "phaseout": "$200 per $1,000 (or part) of MAGI over start (rounded up)",
+   "rules": "loan originated after 12/31/2024, new vehicle (original use), personal use, final assembly in the US, GVWR < 14,000 lb, VIN on return; 2025-2028",
+   "source": "2025 Schedule 1-A (Form 1040) https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf; IRS FS-2025-03 https://www.irs.gov/newsroom/one-big-beautiful-bill-act-tax-deductions-for-working-americans-and-seniors"
+  },
+  "salt_cap": {
+   "cap_2025": 40000,
+   "cap_mfs_2025": 20000,
+   "phasedown_start_magi": 500000,
+   "phasedown_start_magi_mfs": 250000,
+   "phasedown_rate": 0.3,
+   "floor": 10000,
+   "cap_2026": 40400,
+   "phasedown_start_magi_2026": 505000,
+   "source": "IRC §164(b)(7) as amended by OBBBA §70120; The Tax Adviser (Mar 2026) https://www.thetaxadviser.com/issues/2026/mar/cap-raised-strings-attached-the-2025-salt-shake-up.html"
+  },
+  "child_tax_credit": {
+   "per_child": 2200,
+   "refundable_max_per_child": 1700,
+   "refundable_earned_income_floor": 2500,
+   "refundable_rate": 0.15,
+   "other_dependent_credit": 500,
+   "phaseout_start_magi": {
+    "single": 200000,
+    "hoh": 200000,
+    "mfj": 400000
+   },
+   "phaseout": "$50 per $1,000 (or part)",
+   "ordering_note": "nonrefundable CTC is limited by tax after the dependent-care and Saver's credits (Schedule 8812 Credit Limit Worksheet A), so cutting tax below $500 per child just converts CTC into capped ACTC",
+   "source": "2025 Instructions for Schedule 8812 https://www.irs.gov/pub/irs-pdf/i1040s8.pdf; Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.05"
+  },
+  "eitc_2025": {
+   "table": {
+    "0": {
+     "earned_income_amount": 8490,
+     "max_credit": 649,
+     "phase_in": 0.0765,
+     "phaseout_rate": 0.0765,
+     "phaseout_start": 10620,
+     "phaseout_start_mfj": 17730,
+     "phaseout_end": 19104,
+     "phaseout_end_mfj": 26214
+    },
+    "1": {
+     "earned_income_amount": 12730,
+     "max_credit": 4328,
+     "phase_in": 0.34,
+     "phaseout_rate": 0.1598,
+     "phaseout_start": 23350,
+     "phaseout_start_mfj": 30470,
+     "phaseout_end": 50434,
+     "phaseout_end_mfj": 57554
+    },
+    "2": {
+     "earned_income_amount": 17880,
+     "max_credit": 7152,
+     "phase_in": 0.4,
+     "phaseout_rate": 0.2106,
+     "phaseout_start": 23350,
+     "phaseout_start_mfj": 30470,
+     "phaseout_end": 57310,
+     "phaseout_end_mfj": 64430
+    },
+    "3": {
+     "earned_income_amount": 17880,
+     "max_credit": 8046,
+     "phase_in": 0.45,
+     "phaseout_rate": 0.2106,
+     "phaseout_start": 23350,
+     "phaseout_start_mfj": 30470,
+     "phaseout_end": 61555,
+     "phaseout_end_mfj": 68675
+    }
+   },
+   "investment_income_limit": 11950,
+   "note": "phase-in and phaseout rates are statutory (IRC §32(b)(1)); values here are formula results, IRS tables use $50 bands and can differ by a few dollars",
+   "source": "Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.06"
+  },
+  "cdcc_2025": {
+   "expense_cap": {
+    "one": 3000,
+    "two_or_more": 6000
+   },
+   "rate": "35% reduced 1 point per $2,000 (or part) of AGI over $15,000, floor 20% (20% once AGI > $43,000)",
+   "reduced_by": "dependent-care FSA exclusion",
+   "refundable": false,
+   "source": "IRC §21 (pre-2026 text); Form 2441"
+  },
+  "cdcc_2026": {
+   "rate": "50% reduced 1 pt per $2,000 over $15,000 (floor 35%), then 1 pt per $2,000 ($4,000 MFJ) over $75,000 ($150,000 MFJ), floor 20%",
+   "expense_cap": {
+    "one": 3000,
+    "two_or_more": 6000
+   },
+   "source": "IRC §21(a)(2) as amended by OBBBA, eff. tax years after 12/31/2025 https://uscode.house.gov/us/usc/119-134/t26/s21/"
+  },
+  "dependent_care_fsa": {
+   "2025": 5000,
+   "2026": 7500,
+   "source": "IRC §129(a)(2)(A) as amended by OBBBA (2026 increase); SHRM https://shrm.org/topics-tools/news/benefits-compensation/annual-dependent-care-fsa-limit-increase-2026"
+  },
+  "retirement_2025": {
+   "401k_deferral": 23500,
+   "catch_up_50": 7500,
+   "catch_up_60_63": 11250,
+   "ira": 7000,
+   "ira_catch_up_50": 1000,
+   "dc_415c_limit": 70000,
+   "compensation_limit": 350000,
+   "trad_ira_deduction_phaseout_covered": {
+    "single": [
+     79000,
+     89000
+    ],
+    "mfj": [
+     126000,
+     146000
+    ],
+    "spouse_not_covered": [
+     236000,
+     246000
+    ]
+   },
+   "roth_ira_phaseout": {
+    "single_hoh": [
+     150000,
+     165000
+    ],
+    "mfj": [
+     236000,
+     246000
+    ]
+   },
+   "source": "Notice 2024-80 https://www.irs.gov/pub/irs-drop/n-24-80.pdf; IR-2024-285 https://www.irs.gov/newsroom/401k-limit-increases-to-23500-for-2025-ira-limit-remains-7000"
+  },
+  "sep_ira": {
+   "employer_rate": "25% of compensation; for the owner, 20% of (net profit - 1/2 SE tax)",
+   "cap_2025": 70000,
+   "deadline": "return due date including extensions",
+   "source": "IRS Pub 560 (2025) https://www.irs.gov/publications/p560; Notice 2024-80 https://www.irs.gov/pub/irs-drop/n-24-80.pdf; IR-2024-285 https://www.irs.gov/newsroom/401k-limit-increases-to-23500-for-2025-ira-limit-remains-7000"
+  },
+  "solo_401k_retroactive_deferral": {
+   "rule": "a sole proprietor with no employees who adopts a new 401(k) after year-end may make elective deferrals for that prior year until the return due date without extensions (first plan year only)",
+   "deferral_2025": 23500,
+   "deadline_for_2025": "2026-04-15",
+   "source": "IRC §401(b)(2) as amended by SECURE 2.0 §317; Ascensus summary https://www.ascensus.com/industry-regulatory-news/news-articles/retroactive-first-year-elective-deferrals-for-sole-proprietors/"
+  },
+  "hsa": {
+   "2025": {
+    "self": 4300,
+    "family": 8550
+   },
+   "2026": {
+    "self": 4400,
+    "family": 8750
+   },
+   "catch_up_55": 1000,
+   "hdhp_min_deductible_2025": {
+    "self": 1650,
+    "family": 3300
+   },
+   "prior_year_deadline": "2025 contributions allowed until 2026-04-15",
+   "obbba_2026": "exchange bronze and catastrophic plans are HSA-compatible from 2026-01-01 (Notice 2026-5)",
+   "source": "Rev. Proc. 2024-25 (2025); Rev. Proc. 2025-19 (2026); Notice 2026-5 https://www.irs.gov/pub/irs-drop/n-26-05.pdf"
+  },
+  "savers_credit": {
+   "max_contribution_per_person": 2000,
+   "agi_tiers_2025": {
+    "mfj": [
+     47500,
+     51000,
+     79000
+    ],
+    "hoh": [
+     35625,
+     38250,
+     59250
+    ],
+    "single": [
+     23750,
+     25500,
+     39500
+    ]
+   },
+   "rates": [
+    0.5,
+    0.2,
+    0.1
+   ],
+   "refundable": false,
+   "source": "Notice 2024-80 https://www.irs.gov/pub/irs-drop/n-24-80.pdf; IR-2024-285 https://www.irs.gov/newsroom/401k-limit-increases-to-23500-for-2025-ira-limit-remains-7000"
+  },
+  "qcd": {
+   "limit_2025": 108000,
+   "limit_2026": 111000,
+   "min_age": 70.5,
+   "counts_toward_rmd": true,
+   "source": "IRS Pub 590-B (2025) https://www.irs.gov/publications/p590b"
+  },
+  "rmd": {
+   "start_age_born_1951_1959": 73,
+   "uniform_lifetime_divisor": {
+    "73": 26.5,
+    "74": 25.5,
+    "75": 24.6
+   },
+   "excise": 0.25,
+   "excise_if_corrected_timely": 0.1,
+   "waiver": "Form 5329 with reasonable-error explanation",
+   "source": "IRS Pub 590-B (2025) https://www.irs.gov/publications/p590b; Treas. Reg. §1.401(a)(9)-9 Table III"
+  },
+  "se_tax": {
+   "oasdi": 0.124,
+   "medicare": 0.029,
+   "net_earnings_factor": 0.9235,
+   "ss_wage_base_2025": 176100,
+   "deduct_half": true,
+   "source": "IRC §1401-1402; 2025 Schedule 1-A line 4a (cites $176,100 wage base) https://www.irs.gov/pub/irs-pdf/f1040s1a.pdf"
+  },
+  "qbi": {
+   "rate": 0.2,
+   "limit": "20% of (taxable income before QBI - net capital gain)",
+   "threshold_2025": {
+    "single": 197300,
+    "mfj": 394600
+   },
+   "phase_in_end_2025": {
+    "single": 247300,
+    "mfj": 494600
+   },
+   "qbi_reduced_by": "deductible half of SE tax, SE health insurance, retirement-plan contributions",
+   "source": "Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.27; 2025 Instructions for Form 8995 https://www.irs.gov/pub/irs-pdf/i8995.pdf"
+  },
+  "niit": {
+   "rate": 0.038,
+   "threshold": {
+    "single": 200000,
+    "mfj": 250000
+   },
+   "source": "IRC §1411 (not indexed)"
+  },
+  "social_security_taxation": {
+   "base": {
+    "single": 25000,
+    "mfj": 32000
+   },
+   "adjusted_base": {
+    "single": 34000,
+    "mfj": 44000
+   },
+   "max_taxable_share": 0.85,
+   "source": "IRS Pub 915 (2025) https://www.irs.gov/pub/irs-prior/p915--2025.pdf"
+  },
+  "amt_2025": {
+   "exemption": {
+    "mfj": 137000,
+    "single": 88100
+   },
+   "phaseout_start": {
+    "mfj": 1252700,
+    "single": 626350
+   },
+   "rate_28_above": 239100,
+   "source": "Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.11"
+  },
+  "section_179_2025": {
+   "limit": 2500000,
+   "phaseout_start": 4000000,
+   "heavy_suv_cap": 31300,
+   "listed_property_rule": "vehicles must be >50% qualified business use for §179/bonus (IRC §280F(b))",
+   "bonus_depreciation": "100% for property acquired and placed in service after 2025-01-19",
+   "source": "Rev. Proc. 2025-32 https://www.irs.gov/pub/irs-drop/rp-25-32.pdf §2.10 (OBBBA §70306); Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.25 (SUV cap)"
+  },
+  "standard_mileage_2025": {
+   "business": 0.7,
+   "medical": 0.21,
+   "charity": 0.14,
+   "source": "Notice 2025-5 https://www.irs.gov/pub/irs-drop/n-25-05.pdf"
+  },
+  "home_office_simplified": {
+   "rate_per_sqft": 5,
+   "max_sqft": 300,
+   "source": "Rev. Proc. 2013-13; Form 8829 / Schedule C instructions"
+  },
+  "estimated_tax": {
+   "safe_harbor": "lesser of 90% of current-year tax or 100% of prior-year tax (110% if prior AGI > $150,000)",
+   "underpayment_rate": {
+    "2025Q1-Q4": 0.07,
+    "2026Q1": 0.07
+   },
+   "source": "IRC §6654; IRS quarterly interest rates https://www.irs.gov/payments/quarterly-interest-rates"
+  },
+  "gift_and_estate": {
+   "annual_exclusion_2025": 19000,
+   "basic_exclusion_2025": 13990000,
+   "source": "Rev. Proc. 2024-40 https://www.irs.gov/pub/irs-drop/rp-24-40.pdf §2.41-2.43; IR-2024-273"
+  },
+  "form_1099k_threshold": {
+   "amount": 20000,
+   "transactions": 200,
+   "note": "OBBBA retroactively restored the pre-ARPA threshold, so 2025 Venmo/PayPal payments under $20,000 generally get no 1099-K",
+   "source": "IRS FS-2025-08 https://irs.gov/newsroom/irs-issues-faqs-on-form-1099-k-threshold-under-the-one-big-beautiful-bill-dollar-limit-reverts-to-20000"
+  },
+  "used_clean_vehicle_credit": {
+   "amount": "lesser of $4,000 or 30% of price",
+   "price_cap": 25000,
+   "magi_cap": {
+    "single": 75000,
+    "hoh": 112500,
+    "mfj": 150000
+   },
+   "terminated_for_vehicles_acquired_after": "2025-09-30",
+   "source": "IRC §25E as amended by OBBBA; IRS https://www.irs.gov/credits-deductions/used-clean-vehicle-credit"
+  },
+  "trump_account_pilot": {
+   "deposit": 1000,
+   "eligible_births": "2025-01-01 through 2028-12-31, US citizen with SSN",
+   "election": "Form 4547 (may be filed with the 2025 return or online); no deposits before 2026-07-04",
+   "source": "IRC §530A; Instructions for Form 4547 https://www.irs.gov/instructions/i4547"
+  },
+  "charitable_2026": {
+   "non_itemizer_cash_deduction": {
+    "single": 1000,
+    "mfj": 2000
+   },
+   "itemizer_floor_pct_agi": 0.005,
+   "itemized_benefit_cap": "35% for 37%-bracket taxpayers",
+   "source": "OBBBA charitable provisions (eff. 2026); Thomson Reuters https://tax.thomsonreuters.com/news/obbb-charitable-deduction-rules-reshape-giving-strategies/"
+  },
+  "free_file": {
+   "agi_limit_tax_year_2025": 89000,
+   "direct_file": "discontinued for filing season 2026",
+   "source": "IRS https://www.irs.gov/newsroom/free-options-and-resources-for-preparing-and-filing-taxes-in-2026"
+  },
+  "refund_statute_2022": {
+   "deadline": "2026-04-15",
+   "note": "3-year window to claim 2022 refunds (incl. EITC) on original or amended returns",
+   "source": "IRS https://www.irs.gov/newsroom/time-is-running-out-to-claim-1-point-2-billion-in-refunds-for-tax-year-2022-taxpayers-face-april-15-deadline"
+  },
+  "simplified_method_joint_table": {
+   "combined_age_le_110": 410,
+   "111_120": 360,
+   "121_130": 310,
+   "131_140": 260,
+   "ge_141": 210,
+   "source": "IRS Pub 575 Simplified Method Worksheet, Table 2 https://irs.gov/media/166951"
+  },
+  "medical_expense_floor": {
+   "pct_agi": 0.075,
+   "source": "IRC §213(a)"
+  },
+  "tax_year_2022_for_amendments": {
+   "brackets": {
+    "mfj": [
+     [
+      20550,
+      0.1
+     ],
+     [
+      83550,
+      0.12
+     ],
+     [
+      178150,
+      0.22
+     ],
+     [
+      340100,
+      0.24
+     ],
+     [
+      431900,
+      0.32
+     ],
+     [
+      647850,
+      0.35
+     ],
+     [
+      null,
+      0.37
+     ]
+    ],
+    "hoh": [
+     [
+      14650,
+      0.1
+     ],
+     [
+      55900,
+      0.12
+     ],
+     [
+      89050,
+      0.22
+     ],
+     [
+      170050,
+      0.24
+     ],
+     [
+      215950,
+      0.32
+     ],
+     [
+      539900,
+      0.35
+     ],
+     [
+      null,
+      0.37
+     ]
+    ]
+   },
+   "std_deduction": {
+    "mfj": 25900,
+    "hoh": 19400,
+    "single": 12950
+   },
+   "additional_65": {
+    "married": 1400,
+    "unmarried": 1750
+   },
+   "ctc_per_child": 2000,
+   "actc_max": 1500,
+   "eitc_one_child": {
+    "max": 3733,
+    "earned_income_amount": 10980,
+    "phaseout_start": 20130
+   },
+   "salt_cap": 10000,
+   "source": "Rev. Proc. 2021-45 https://www.irs.gov/pub/irs-drop/rp-21-45.pdf"
+  },
+  "tax_year_2026_for_next_year": {
+   "brackets": {
+    "single": [
+     [
+      12400,
+      0.1
+     ],
+     [
+      50400,
+      0.12
+     ],
+     [
+      105700,
+      0.22
+     ],
+     [
+      201775,
+      0.24
+     ],
+     [
+      256225,
+      0.32
+     ],
+     [
+      640600,
+      0.35
+     ],
+     [
+      null,
+      0.37
+     ]
+    ],
+    "mfj": [
+     [
+      24800,
+      0.1
+     ],
+     [
+      100800,
+      0.12
+     ],
+     [
+      211400,
+      0.22
+     ],
+     [
+      403550,
+      0.24
+     ],
+     [
+      512450,
+      0.32
+     ],
+     [
+      768700,
+      0.35
+     ],
+     [
+      null,
+      0.37
+     ]
+    ],
+    "hoh": [
+     [
+      17700,
+      0.1
+     ],
+     [
+      67450,
+      0.12
+     ],
+     [
+      105700,
+      0.22
+     ],
+     [
+      201750,
+      0.24
+     ],
+     [
+      256200,
+      0.32
+     ],
+     [
+      640600,
+      0.35
+     ],
+     [
+      null,
+      0.37
+     ]
+    ]
+   },
+   "std_deduction": {
+    "single": 16100,
+    "mfj": 32200,
+    "hoh": 24150
+   },
+   "additional_65": {
+    "married": 1650,
+    "unmarried": 2050
+   },
+   "ltcg_0pct_top": {
+    "single": 49450,
+    "mfj": 98900,
+    "hoh": 66200
+   },
+   "401k": 24500,
+   "ira": 7500,
+   "ctc": 2200,
+   "actc_max": 1700,
+   "source": "Rev. Proc. 2025-32 https://www.irs.gov/pub/irs-drop/rp-25-32.pdf; IRS IR on 2026 limits https://www.irs.gov/newsroom/401k-limit-increases-to-24500-for-2026-ira-limit-increases-to-7500"
+  },
+  "market_path_2025": {
+   "sp500_record_close_2025_02_19": "~6,144",
+   "sp500_close_2025_04_08": 4982.77,
+   "drawdown": "18.9%",
+   "sp500_close_2025_12_31": 6845.5,
+   "year_return": "~16.4%",
+   "source": "Reuters via Fidelity (Apr 8 2025); Yahoo Finance/AP (Dec 31 2025)"
+  },
+  "engine_conventions": "Values = change in net federal burden (income tax after credits + SE tax + NIIT - refundable credits), each opportunity computed alone against the reference return unless value_math says otherwise; FICA savings added where a payroll route is involved; 'welfare' values are economic gains that are not federal tax (e.g. Trump-account deposit, fees avoided, Roth/heir rate spread). State tax ignored except SALT. Additional Medicare Tax ignored (unaffected by any opportunity)."
+ },
+ "households": [
+  {
+   "id": "morenos_oh",
+   "name": "The Morenos",
+   "brief": "ICU nurse's overtime, two little kids, HDHP but no HSA",
+   "filing_status": "mfj",
+   "state": "OH",
+   "members": [
+    {
+     "name": "Ana Moreno",
+     "age": 34,
+     "role": "ICU nurse, hourly, FLSA non-exempt"
+    },
+    {
+     "name": "Luis Moreno",
+     "age": 36,
+     "role": "logistics analyst, salaried"
+    },
+    {
+     "name": "Sofia Moreno",
+     "age": 4,
+     "role": "daughter, preschool"
+    },
+    {
+     "name": "Mateo Moreno",
+     "age": 0,
+     "role": "son, born 2025-03-03 (US citizen, SSN issued)"
+    }
+   ],
+   "facts": {
+    "ana_regular_hours": 1760,
+    "ana_regular_rate": 41.0,
+    "ana_regular_pay": 72160,
+    "ana_unpaid_leave_weeks": 8,
+    "ana_ot_hours_1_5x": 460,
+    "ana_ot_pay_1_5x": 28290.0,
+    "ana_ot_hours_2x_union_holiday": 60,
+    "ana_ot_pay_2x": 4920.0,
+    "ana_qualified_ot_premium": 10660.0,
+    "ana_403b_pretax": 5000,
+    "ana_w2_box1": 100370.0,
+    "ana_fed_withholding": 13200,
+    "luis_salary": 78000,
+    "luis_401k_pretax": 4680,
+    "luis_sec125_hdhp_premium": 3600,
+    "luis_w2_box1": 69720,
+    "luis_fed_withholding": 6100,
+    "interest": 210,
+    "hdhp": {
+     "coverage": "family",
+     "months": 12,
+     "deductible": 3400,
+     "hsa_qualified": true,
+     "hsa_contributions_2025": 0,
+     "other_coverage": "none"
+    },
+    "dependent_care_paid": {
+     "sofia_preschool": 9800,
+     "mateo_infant_care_may_dec": 10400,
+     "total": 20200
+    },
+    "dcfsa_2025": 0,
+    "daycare_change_2026": {
+     "new_provider_start": "2026-06-01",
+     "monthly_tuition": 1700,
+     "unrelated_provider": true
+    },
+    "new_car_loan": {
+     "vehicle": "2025 Honda Odyssey (final assembly Lincoln, AL)",
+     "purchased": "2025-06-14",
+     "principal": 42000,
+     "apr": 0.0649,
+     "interest_paid_2025": 1480,
+     "use": "personal"
+    },
+    "itemizable": {
+     "ohio_income_tax": 3050,
+     "city_income_tax": 4120,
+     "property_tax": 4300,
+     "mortgage_interest": 8900,
+     "charity": 1200,
+     "total": 21570
+    },
+    "engine_inputs_2025": {
+     "wages": 170090.0,
+     "interest": 210,
+     "n_ctc": 2,
+     "n_care": 2,
+     "care_exp": 20200,
+     "lower_earner": 69720,
+     "ot_premium": 10660.0,
+     "car_loan_int": 1480,
+     "salt_paid": 11470,
+     "mortgage_int": 8900,
+     "charity": 1200,
+     "withholding": 19300
+    },
+    "reference_2025_return": {
+     "agi": 170300.0,
+     "ss_taxable": 0.0,
+     "deduction": 31500.0,
+     "itemizing": false,
+     "salt_cap": 40000.0,
+     "sch1a": {
+      "ot": 10660.0,
+      "car": 1480.0
+     },
+     "qbi": 0.0,
+     "taxable_income": 126660.0,
+     "regular_tax": 17693.2,
+     "amt": 0.0,
+     "cdcc": 1200.0,
+     "savers": 0.0,
+     "ctc_nonref": 4400.0,
+     "actc": 0.0,
+     "eitc": 0.0,
+     "se_tax": 0.0,
+     "niit": 0.0,
+     "total_tax": 12093.2,
+     "refundable": 0.0,
+     "refund": 7206.8
+    },
+    "reference_note": "Best 2025 return also files Form 4547 for Mateo ($1,000 Treasury deposit after 2026-07-04). Assumes the 2025 HSA contribution is NOT yet made; refund rises by $1,881 if it is."
+   },
+   "documents": [
+    {
+     "id": "h1_w2_ana",
+     "title": "2025 Form W-2 — Scioto Valley Medical Center (Ana)",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "ot_deduction"
+     ],
+     "text": "Box 1 wages $100,370.00; box 2 federal tax withheld $13,200.00; box 12 code E $5,000. Box 14 is blank — no qualified overtime amount reported."
+    },
+    {
+     "id": "h1_w2_luis",
+     "title": "2025 Form W-2 — Buckeye Freight Logistics (Luis)",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "hsa_open",
+      "hsa_payroll_2026"
+     ],
+     "text": "Box 1 $69,720.00; box 2 $6,100.00; box 12 code D $4,680; no box 12 code W (zero HSA contributions); box 14 'SEC125 MED $3,600'."
+    },
+    {
+     "id": "h1_birth_ssn",
+     "title": "Mateo's birth record and Social Security card",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "ctc",
+      "trump_account"
+     ],
+     "text": "Mateo Luis Moreno, born March 3, 2025, Columbus, Ohio; U.S. citizen; SSN issued April 2025."
+    },
+    {
+     "id": "h1_daycare",
+     "title": "Little Acorns Learning Center — 2025 tuition statement",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "cdcc",
+      "dcfsa_missed",
+      "dcfsa_midyear_2026"
+     ],
+     "text": "Paid in 2025: Sofia (pre-K) $9,800; Mateo (infant room, May–Dec) $10,400; total $20,200. Provider EIN listed."
+    },
+    {
+     "id": "h1_paystub",
+     "title": "Ana — final 2025 earnings statement, year-to-date (hospital HR portal)",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "ot_deduction"
+     ],
+     "text": "YTD: Regular 1,760.0 h × $41.00 = $72,160.00; Overtime 1.5× (hours over 40/week) 460.0 h × $61.50 = $28,290.00; Overtime 2.0× (union contract rate for hours over 40 in holiday weeks) 60.0 h × $82.00 = $4,920.00. No separate 'premium' line."
+    },
+    {
+     "id": "h1_benefits_oe",
+     "title": "Buckeye Freight — 2025 open-enrollment confirmation (Nov 2024)",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "dcfsa_missed",
+      "hsa_open"
+     ],
+     "text": "Elected: HDHP Family, 401(k) 6%. Dependent Care FSA (up to $5,000): WAIVED. Health Savings Account: not opened."
+    },
+    {
+     "id": "h1_hdhp",
+     "title": "HDHP Family plan summary — 'HSA-qualified'",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "hsa_open",
+      "hsa_payroll_2026"
+     ],
+     "text": "Family deductible $3,400, OOP max $8,000; coverage Jan 1–Dec 31, 2025, Mateo added 3/3/2025; no other medical coverage on file for either spouse."
+    },
+    {
+     "id": "h1_notice_2025_69",
+     "title": "IRS Notice 2025-69 — figuring 2025 qualified overtime",
+     "facility": "library",
+     "layer": 1,
+     "clue_for": [
+      "ot_deduction"
+     ],
+     "text": "With no W-2 breakout, use pay statements: one-third of total 1.5× overtime pay, one-fourth of total 2× overtime pay for hours over 40 in a workweek. Only the FLSA half-time premium counts — not the extra half of contract double time, and not weekend/holiday premiums for hours that are not over 40."
+    },
+    {
+     "id": "h1_form4547",
+     "title": "Instructions for Form 4547 — Trump Account election",
+     "facility": "library",
+     "layer": 1,
+     "clue_for": [
+      "trump_account"
+     ],
+     "text": "A U.S.-citizen child with an SSN born 1/1/2025–12/31/2028 qualifies for a one-time $1,000 Treasury pilot deposit; Form 4547 can go in with the 2025 return; no deposits before July 4, 2026."
+    },
+    {
+     "id": "h1_reg_125_4",
+     "title": "Treas. Reg. §1.125-4(f) — mid-year cafeteria election changes",
+     "facility": "law",
+     "layer": 2,
+     "clue_for": [
+      "dcfsa_midyear_2026"
+     ],
+     "text": "A plan may let an employee start or change a dependent-care FSA election mid-year when the care provider or its cost changes (not for a relative provider's price increase)."
+    },
+    {
+     "id": "h1_inbox_daycare",
+     "title": "Email: Bright Path Early Learning — enrollment confirmed (Feb 2026)",
+     "facility": "inbox",
+     "layer": 1,
+     "clue_for": [
+      "dcfsa_midyear_2026"
+     ],
+     "text": "'Mateo's toddler-room spot starts June 1, 2026. Tuition $1,700/month; please give 30 days' notice to your current provider.'"
+    },
+    {
+     "id": "h1_phone",
+     "title": "Call with Luis (March 2026)",
+     "facility": "phone",
+     "layer": 3,
+     "clue_for": [
+      "car_loan_interest"
+     ],
+     "text": "'Oh — we also bought a new Odyssey in June. $42,000 loan at 6.49%; the lender's site says $1,480 of interest for 2025. Nobody asked about it last year.'"
+    },
+    {
+     "id": "h1_flyer_ot",
+     "title": "Break-room flyer: 'NO TAX ON OVERTIME!'",
+     "facility": "flyers",
+     "layer": 0,
+     "clue_for": [],
+     "text": "'Starting 2025 ALL your overtime pay is tax-free — deduct every OT dollar on your stubs, up to $25,000 for couples!'"
+    },
+    {
+     "id": "h1_flyer_529",
+     "title": "College-savings mailer: 'Cut your 2025 taxes — fund a 529 by April 15!'",
+     "facility": "flyers",
+     "layer": 0,
+     "clue_for": [],
+     "text": "Mailer urges a 529 deposit 'before you file' to shrink this year's tax bill."
+    }
+   ],
+   "opportunities": [
+    {
+     "id": "ot_deduction",
+     "title": "Overtime deduction — FLSA premium only",
+     "section": "file",
+     "layer": 1,
+     "value": 2345.2,
+     "value_math": "$28,290/3 + $4,920/4 = $10,660 qualified OT (cap $25,000, MAGI $170,300 < $300k) × 22% = $2,345.20",
+     "needs": [
+      "h1_paystub",
+      "h1_notice_2025_69",
+      "h1_w2_ana"
+     ],
+     "cite": "IRC §225; Notice 2025-69 §III methods B and D; Schedule 1-A Part III",
+     "legality": "clear"
+    },
+    {
+     "id": "ctc",
+     "title": "Child Tax Credit at $2,200 per child",
+     "section": "file",
+     "layer": 0,
+     "value": 4400.0,
+     "value_math": "2 children × $2,200; MAGI $170,300 < $400,000; tax ($16,493 after CDCC) absorbs it all",
+     "needs": [
+      "h1_birth_ssn",
+      "h1_w2_ana",
+      "h1_w2_luis"
+     ],
+     "cite": "IRC §24 as amended by OBBBA; Schedule 8812",
+     "legality": "clear"
+    },
+    {
+     "id": "cdcc",
+     "title": "Child and dependent care credit",
+     "section": "file",
+     "layer": 0,
+     "value": 1200.0,
+     "value_math": "min($20,200 paid, $6,000 cap) × 20% (AGI > $43,000) = $1,200",
+     "needs": [
+      "h1_daycare"
+     ],
+     "cite": "IRC §21; Form 2441",
+     "legality": "clear"
+    },
+    {
+     "id": "trump_account",
+     "title": "Trump Account election for Mateo (Form 4547)",
+     "section": "file",
+     "layer": 1,
+     "value": 1000,
+     "value_math": "One-time $1,000 Treasury pilot deposit into Mateo's account (welfare, not tax)",
+     "needs": [
+      "h1_birth_ssn",
+      "h1_form4547"
+     ],
+     "cite": "IRC §530A; Instructions for Form 4547",
+     "legality": "clear"
+    },
+    {
+     "id": "car_loan_interest",
+     "title": "Car-loan interest on the new U.S.-built minivan",
+     "section": "file",
+     "layer": 3,
+     "value": 325.6,
+     "value_math": "$1,480 interest (cap $10,000; MAGI $170,300 < $200,000) × 22% = $325.60",
+     "needs": [
+      "h1_phone"
+     ],
+     "cite": "IRC §163(h)(4); Schedule 1-A Part IV",
+     "legality": "clear"
+    },
+    {
+     "id": "hsa_open",
+     "title": "Make a 2025 HSA contribution before April 15",
+     "section": "open",
+     "layer": 1,
+     "value": 1881.0,
+     "value_math": "Family HDHP all 12 months → $8,550 limit × 22% = $1,881 (credits unchanged)",
+     "needs": [
+      "h1_hdhp",
+      "h1_benefits_oe",
+      "h1_w2_luis"
+     ],
+     "cite": "IRC §223; Pub 969; Form 8889",
+     "legality": "clear"
+    },
+    {
+     "id": "dcfsa_missed",
+     "title": "Dependent-care FSA skipped at open enrollment",
+     "section": "missed",
+     "layer": 1,
+     "value": 482.5,
+     "value_math": "$5,000 × (22% income tax + 7.65% FICA) = $1,482.50 minus CDCC lost ($6,000→$1,000 base × 20% = $1,000) = $482.50",
+     "needs": [
+      "h1_benefits_oe",
+      "h1_daycare"
+     ],
+     "cite": "IRC §129; §21(c)",
+     "legality": "clear"
+    },
+    {
+     "id": "dcfsa_midyear_2026",
+     "title": "Enroll in the $7,500 DCFSA mid-2026 at the daycare switch",
+     "section": "next",
+     "layer": 2,
+     "value": 483.75,
+     "value_math": "2026: $7,500 × 29.65% = $2,223.75 minus 2026 CDCC given up ($6,000 × 29% = $1,740; OBBBA rate at AGI $170,300) = $483.75 (smaller if the HSA move also lifts the CDCC rate to 32%)",
+     "needs": [
+      "h1_reg_125_4",
+      "h1_inbox_daycare",
+      "h1_daycare"
+     ],
+     "cite": "IRC §129(a)(2)(A) (OBBBA); Treas. Reg. §1.125-4(f); IRC §21(a)(2) (2026)",
+     "legality": "gray"
+    },
+    {
+     "id": "hsa_payroll_2026",
+     "title": "Fund the 2026 HSA through payroll",
+     "section": "next",
+     "layer": 1,
+     "value": 2774.38,
+     "value_math": "2026 family $8,750 × 22% = $1,925 + 7.65% FICA $669.38 + lower AGI lifts 2026 CDCC 29%→32% (+$180) = $2,774.38",
+     "needs": [
+      "h1_hdhp",
+      "h1_w2_luis"
+     ],
+     "cite": "IRC §223, §125; Rev. Proc. 2025-19",
+     "legality": "clear"
+    }
+   ],
+   "decoys": [
+    {
+     "id": "ot_all_pay",
+     "lure": "All overtime pay is tax-free now — deduct every OT dollar, up to $25,000",
+     "doc": "h1_flyer_ot",
+     "why_wrong": "Only the FLSA half-time premium ($10,660) qualifies; claiming $25,000 understates tax by $3,154.80, which must be repaid with interest and risks a 20% negligence penalty (§6662(b)(1)); value = that penalty",
+     "value": -630.96
+    },
+    {
+     "id": "fund_529",
+     "lure": "Put money in a 529 before April 15 to cut your 2025 taxes",
+     "doc": "h1_flyer_529",
+     "why_wrong": "529 contributions get no federal deduction; the same cash in the 2025 HSA saves $1,881",
+     "value": -1881.0
+    }
+   ],
+   "dry_wells": [
+    {
+     "id": "h1_dry_eob",
+     "title": "Mateo's birth hospital bills and EOBs ($3,180 out of pocket; far below the 7.5%-of-AGI floor and they don't itemize)",
+     "facility": "cabinet"
+    }
+   ]
+  },
+  {
+   "id": "haines_fl",
+   "name": "Dolores Haines",
+   "brief": "Widow, 74, writing church checks while her IRA RMD runs short",
+   "filing_status": "single",
+   "state": "FL",
+   "members": [
+    {
+     "name": "Dolores Haines",
+     "age": 74,
+     "role": "retired school librarian; widowed Sept 2022 (Walter); born 1951"
+    }
+   ],
+   "facts": {
+    "ss_benefits": 19200,
+    "pension_gross": 12000,
+    "pension_investment_in_contract": 36000,
+    "pension_annuity_start": "2010-07-01",
+    "pension_combined_ages_at_start": 124,
+    "simplified_method_payments": 310,
+    "pension_excludable_2025": 1393.55,
+    "ira_value_2024_12_31": 612000,
+    "rmd_divisor_age_74": 25.5,
+    "rmd_2025": 24000,
+    "ira_distributed_2025": 20000,
+    "rmd_shortfall": 4000,
+    "ira_withholding": 2400,
+    "pension_withholding": 1800,
+    "interest": 7500,
+    "charity_checks_2025": {
+     "grace_lutheran": 6000,
+     "food_bank": 2000
+    },
+    "mortgage_balance": 64000,
+    "mortgage_rate": 0.0325,
+    "mortgage_interest": 2100,
+    "property_tax": 4800,
+    "brk_shares": {
+     "value_2025_12_31": 260000,
+     "broker_basis": 40000,
+     "walter_dod_value_2022_09": 180000,
+     "ownership": "JTWROS with Walter (common-law state)",
+     "correct_basis": 110000
+    },
+    "house": {
+     "purchase_1994": 90000,
+     "value_at_walter_death": 380000,
+     "basis_now": 235000,
+     "value_now": 420000
+    },
+    "heirs": "two adult children, both in the 24% bracket",
+    "tax_2022_as_filed": {
+     "status": "mfj",
+     "ss": 36000,
+     "pension": 21000,
+     "pension_note": "Walter $2,000/mo Jan-Sep + survivor $1,000/mo Oct-Dec",
+     "ira": 30000,
+     "interest": 3000,
+     "deduction": "standard $28,700",
+     "medical_paid_2022": 41000,
+     "property_tax": 4600,
+     "mortgage_interest": 3400,
+     "charity": 8000,
+     "total_tax_filed": 6201.0
+    },
+    "assumption_2026": "same income; 2026 RMD = $615,000 / 24.6 = $25,000, plus the $4,000 2025 make-up",
+    "engine_inputs_2025": {
+     "ss_benefits": 19200,
+     "pension_taxable": 10606.45,
+     "ira_taxable": 20000,
+     "interest": 7500,
+     "n65": 1,
+     "n_senior": 1,
+     "salt_paid": 4800,
+     "mortgage_int": 2100,
+     "charity": 8000,
+     "withholding": 4200
+    },
+    "reference_2025_return": {
+     "agi": 54256.93,
+     "ss_taxable": 16150.48,
+     "deduction": 17750.0,
+     "itemizing": false,
+     "salt_cap": 40000.0,
+     "sch1a": {
+      "senior": 6000.0
+     },
+     "qbi": 0.0,
+     "taxable_income": 30506.93,
+     "regular_tax": 3422.33,
+     "amt": 0.0,
+     "cdcc": 0.0,
+     "savers": 0.0,
+     "ctc_nonref": 0.0,
+     "actc": 0.0,
+     "eitc": 0.0,
+     "se_tax": 0.0,
+     "niit": 0.0,
+     "total_tax": 3422.33,
+     "refundable": 0.0,
+     "refund": 777.67
+    },
+    "reference_note": "Reference assumes the Form 5329 waiver is granted (excise $0) and the pension exclusion is claimed. Age set to 74 (not ~68) because QCDs need age 70½ and RMDs start at 73."
+   },
+   "documents": [
+    {
+     "id": "h2_ssa1099",
+     "title": "Form SSA-1099 (2025)",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "senior_deduction",
+      "roth_missed"
+     ],
+     "text": "Box 5 net benefits for 2025: $19,200.00 (survivor benefit, $1,600/month). Date of birth on file: 1951."
+    },
+    {
+     "id": "h2_1099r_ira",
+     "title": "Form 1099-R (2025) — Seaside Trust IRA",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "rmd_shortfall",
+      "qcd_missed"
+     ],
+     "text": "Box 1 gross distribution $20,000.00; box 2a taxable $20,000.00; box 4 federal tax withheld $2,400.00; distribution code 7."
+    },
+    {
+     "id": "h2_1099r_pension",
+     "title": "Form 1099-R (2025) — State Teachers' Retirement survivor annuity",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "pension_exclusion"
+     ],
+     "text": "Box 1 $12,000.00; box 2a blank, 'taxable amount not determined' checked; box 9b blank; box 4 $1,800.00."
+    },
+    {
+     "id": "h2_1099int",
+     "title": "Form 1099-INT (2025) — CDs and T-bills",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [],
+     "text": "Interest income $7,500 ($4,100 bank CDs, $3,400 Treasury bills)."
+    },
+    {
+     "id": "h2_church",
+     "title": "Grace Lutheran giving statement + food bank receipt (2025)",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "qcd_missed",
+      "qcd_2026"
+     ],
+     "text": "Gifts by personal check: Grace Lutheran $6,000; Treasure Coast Food Bank $2,000; no goods or services received."
+    },
+    {
+     "id": "h2_ira_rmd",
+     "title": "Seaside Trust IRA — 2025 RMD tracker (portal)",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "rmd_shortfall",
+      "roth_missed"
+     ],
+     "text": "12/31/2024 value $612,000; 2025 RMD $24,000 (divisor 25.5); distributed $20,000 ($5,000 quarterly); remaining $4,000. 12/31/2025 value $615,000."
+    },
+    {
+     "id": "h2_brokerage",
+     "title": "Brokerage 2025 year-end summary (portal)",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "zero_pct_harvest_2026"
+     ],
+     "text": "Berkshire Hathaway B: value $260,000; cost basis shown $40,000 (noncovered, 1998); unrealized gain $220,000; no 2025 sales."
+    },
+    {
+     "id": "h2_pub590b",
+     "title": "IRS Pub 590-B — QCDs and missed RMDs",
+     "facility": "library",
+     "layer": 1,
+     "clue_for": [
+      "qcd_missed",
+      "rmd_shortfall",
+      "qcd_2026"
+     ],
+     "text": "A QCD paid straight from the IRA to charity by an owner 70½+ (up to $108,000 for 2025) is excluded from income and counts toward the RMD. A missed RMD owes 25% (10% if fixed in time), waivable for reasonable error on Form 5329."
+    },
+    {
+     "id": "h2_vault_pension",
+     "title": "Walter's 2010 retirement election packet (basement box)",
+     "facility": "vault",
+     "layer": 2,
+     "clue_for": [
+      "pension_exclusion",
+      "amend_2022"
+     ],
+     "text": "Joint-and-survivor annuity starting July 1, 2010 (Walter 65, Dolores 59); survivor benefit 50%. 'Your after-tax contributions (investment in the contract): $36,000.'"
+    },
+    {
+     "id": "h2_vault_estate",
+     "title": "Estate file: date-of-death valuation letter (Oct 2022)",
+     "facility": "vault",
+     "layer": 2,
+     "clue_for": [
+      "zero_pct_harvest_2026"
+     ],
+     "text": "Joint account (JTWROS) holding Berkshire Hathaway B worth $180,000 at Walter's death on 9/14/2022 (1998 cost $40,000). Home appraised $380,000."
+    },
+    {
+     "id": "h2_vault_2022",
+     "title": "2022 joint Form 1040 (copy)",
+     "facility": "vault",
+     "layer": 2,
+     "clue_for": [
+      "amend_2022"
+     ],
+     "text": "Filed 4/10/2023: AGI $83,800; standard deduction $28,700; no Schedule A; total tax $6,201; pension reported fully taxable ($21,000)."
+    },
+    {
+     "id": "h2_phone",
+     "title": "Call with Dolores (March 2026)",
+     "facility": "phone",
+     "layer": 3,
+     "clue_for": [
+      "amend_2022",
+      "roth_missed"
+     ],
+     "text": "'Walt's last year was awful — I paid about $41,000 for the hospital, hospice and home aides in 2022, all from our joint account. The kids are fine: Ellen's a pharmacist, Mark's an engineer; the IRA will go to them.'"
+    },
+    {
+     "id": "h2_flyer_mortgage",
+     "title": "Mortgage-broker postcard",
+     "facility": "flyers",
+     "layer": 0,
+     "clue_for": [],
+     "text": "'Don't pay off that mortgage — you'll lose your biggest tax deduction! Keep it and itemize.'"
+    },
+    {
+     "id": "h2_email_nephew",
+     "title": "Email from nephew Greg (Feb 2026)",
+     "facility": "inbox",
+     "layer": 1,
+     "clue_for": [],
+     "text": "'Aunt Dee, deed the house to Ellen and Mark now — skips probate and estate tax. A guy from my seminar does the deed for $900.'"
+    }
+   ],
+   "opportunities": [
+    {
+     "id": "senior_deduction",
+     "title": "New $6,000 senior deduction",
+     "section": "file",
+     "layer": 0,
+     "value": 720.0,
+     "value_math": "$6,000 × 12%; MAGI $54,257 < $75,000 so no 6% phase-out; on top of the $17,750 standard deduction",
+     "needs": [
+      "h2_ssa1099",
+      "h2_1099r_ira"
+     ],
+     "cite": "IRC §151(d)(5)(C) (OBBBA §70103); Schedule 1-A Part V",
+     "legality": "clear"
+    },
+    {
+     "id": "pension_exclusion",
+     "title": "Tax-free slice of the survivor pension (Simplified Method)",
+     "section": "file",
+     "layer": 2,
+     "value": 187.57,
+     "value_math": "$36,000 ÷ 310 payments × 12 = $1,393.55 excluded; × 12% plus a small Social Security knock-on = $187.57 a year (also on 2022–2024)",
+     "needs": [
+      "h2_1099r_pension",
+      "h2_vault_pension"
+     ],
+     "cite": "IRC §72(d); Pub 575 Simplified Method Table 2",
+     "legality": "clear"
+    },
+    {
+     "id": "rmd_shortfall",
+     "title": "Take the $4,000 RMD shortfall now and request a waiver",
+     "section": "open",
+     "layer": 1,
+     "value": 1000.0,
+     "value_math": "25% × ($24,000 − $20,000) = $1,000 excise avoided with a reasonable-error waiver on Form 5329 (fallback: 10% = $400 if corrected timely)",
+     "needs": [
+      "h2_ira_rmd",
+      "h2_1099r_ira",
+      "h2_pub590b"
+     ],
+     "cite": "IRC §4974; Form 5329 instructions",
+     "legality": "clear"
+    },
+    {
+     "id": "amend_2022",
+     "title": "Amend the 2022 joint return to itemize Walter's final-illness bills",
+     "section": "open",
+     "layer": 3,
+     "value": 2974.37,
+     "value_math": "2022: Schedule A $50,908 (medical $41,000 − 7.5% AGI, $4,600 tax, $3,400 interest, $8,000 gifts) vs $28,700 standard, plus pension exclusion → tax $6,201 → $3,227; file by April 15, 2026",
+     "needs": [
+      "h2_vault_2022",
+      "h2_phone",
+      "h2_vault_pension"
+     ],
+     "cite": "IRC §213, §6511; Form 1040-X",
+     "legality": "clear"
+    },
+    {
+     "id": "qcd_missed",
+     "title": "Gave by check instead of QCD",
+     "section": "missed",
+     "layer": 1,
+     "value": 1776.0,
+     "value_math": "$8,000 QCD (inside the $24,000 RMD) drops IRA income $8,000 and taxable Social Security $6,800 (she sits in the 85% phase-in): taxable income −$14,800 × 12% = $1,776",
+     "needs": [
+      "h2_church",
+      "h2_1099r_ira",
+      "h2_pub590b"
+     ],
+     "cite": "IRC §408(d)(8); Pub 590-B",
+     "legality": "clear"
+    },
+    {
+     "id": "roth_missed",
+     "title": "Roth conversion up to the top of the 12% bracket",
+     "section": "missed",
+     "layer": 1,
+     "value": 2115.06,
+     "value_math": "Convert $17,795 in 2025: extra tax $2,155.74 (12% + tiny SS knock-on; MAGI stays < $75k); heirs at 24% (client call confirms their brackets) would pay $4,270.80 later → welfare +$2,115.06",
+     "needs": [
+      "h2_ira_rmd",
+      "h2_ssa1099"
+     ],
+     "cite": "IRC §408A(d)(3); Pub 590-A",
+     "legality": "clear"
+    },
+    {
+     "id": "qcd_2026",
+     "title": "Run 2026 giving through QCDs",
+     "section": "next",
+     "layer": 1,
+     "value": 840.0,
+     "value_math": "2026: $8,000 QCD × 12% = $960 minus the new $1,000 non-itemizer cash-gift deduction she'd otherwise get (× 12% = $120) = $840",
+     "needs": [
+      "h2_church",
+      "h2_pub590b"
+     ],
+     "cite": "IRC §408(d)(8); IRC §170(p) (OBBBA, 2026); QCD limit $111,000",
+     "legality": "clear"
+    },
+    {
+     "id": "zero_pct_harvest_2026",
+     "title": "Harvest $18,170 of Berkshire gains at 0% in 2026",
+     "section": "next",
+     "layer": 2,
+     "value": 2725.5,
+     "value_math": "After a 2026 QCD, taxable income $31,276 leaves ~$18,170 under the $49,450 0% ceiling (MAGI < $75k): sell/rebuy, $18,170 × 15% = $2,725.50 avoided later; true basis is $110,000 (half step-up), not the broker's $40,000; competes with Roth-conversion room and is moot if shares are held until death",
+     "needs": [
+      "h2_vault_estate",
+      "h2_brokerage"
+     ],
+     "cite": "IRC §1(h), §1014, §2040(b); Rev. Proc. 2025-32 §2.03",
+     "legality": "clear"
+    }
+   ],
+   "decoys": [
+    {
+     "id": "keep_mortgage_itemize",
+     "lure": "Keep the mortgage and itemize so you don't lose the interest deduction",
+     "doc": "h2_flyer_mortgage",
+     "why_wrong": "Her Schedule A ($14,900) is below her $17,750 standard deduction (the $6,000 senior deduction applies either way), so the interest saves $0; itemizing costs $342",
+     "value": -342.0
+    },
+    {
+     "id": "deed_house_now",
+     "lure": "Deed the house to the kids now to avoid probate and estate tax",
+     "doc": "h2_email_nephew",
+     "why_wrong": "No estate tax under a $13.99M exclusion; a lifetime gift hands the kids her $235,000 carryover basis instead of a step-up to ~$420,000 → ~15% on $185,000 later",
+     "value": -27750.0
+    }
+   ],
+   "dry_wells": [
+    {
+     "id": "h2_dry_medicare",
+     "title": "Medicare Part B premium notice ($185/month, no IRMAA)",
+     "facility": "cabinet"
+    },
+    {
+     "id": "h2_dry_homestead",
+     "title": "Florida homestead exemption renewal card",
+     "facility": "cabinet"
+    }
+   ]
+  },
+  {
+   "id": "raghavan_becker_ca",
+   "name": "Priya Raghavan & Tom Becker",
+   "brief": "Tech couple: RSUs, ESPP, SALT phase-down, old IRA in a box",
+   "filing_status": "mfj",
+   "state": "CA",
+   "members": [
+    {
+     "name": "Priya Raghavan",
+     "age": 37,
+     "role": "staff software engineer, public company (RSUs + ESPP)"
+    },
+    {
+     "name": "Tom Becker",
+     "age": 38,
+     "role": "product manager, health-tech company"
+    }
+   ],
+   "facts": {
+    "priya_base": 210000,
+    "priya_rsu_vest_income_2025": 120000,
+    "priya_espp_disqualifying_ordinary": 6000,
+    "priya_401k": 23500,
+    "priya_w2_box1": 312500,
+    "priya_fed_wh": 78000,
+    "priya_ca_wh": 30500,
+    "tom_salary_and_bonus": 220000,
+    "tom_401k": 10000,
+    "tom_w2_box1": 210000,
+    "tom_fed_wh": 40500,
+    "tom_ca_wh": 17500,
+    "interest": 2500,
+    "qualified_dividends": 4000,
+    "rsu_2025_same_day_sales": {
+     "proceeds": 118500,
+     "basis_on_1099b": 0,
+     "true_basis_fmv_at_vest": 120000,
+     "term": "short"
+    },
+    "rsu_2022_lot_sold_2025_08": {
+     "proceeds": 60000,
+     "basis_on_1099b": 0,
+     "true_basis_fmv_at_vest": 25000,
+     "term": "long"
+    },
+    "espp_sale_2025_02": {
+     "proceeds": 43000,
+     "basis_on_1099b": 34000,
+     "fmv_at_purchase": 40000,
+     "ordinary_income_in_w2": 6000,
+     "term": "short",
+     "disposition": "disqualifying"
+    },
+    "backdoor_roth_2025": {
+     "priya_nondeductible": 7000,
+     "priya_converted": 7000,
+     "priya_rollover_ira_2025_12_31": 193000,
+     "priya_taxable_conversion": 6755.0,
+     "tom_nondeductible": 7000,
+     "tom_converted": 7000,
+     "tom_other_iras": 0
+    },
+    "taxable_fund": {
+     "bought_2025_02_19": 150000,
+     "value_2025_04_08": 121650,
+     "value_2025_12_31": 167100
+    },
+    "property_tax": 14600,
+    "mortgage_interest": 26000,
+    "acquisition_debt": 720000,
+    "charity_cash_dec_2025": 15000,
+    "giving_plan": "~$15,000/yr for at least 3 more years (client only)",
+    "tax_2022_as_filed": {
+     "wages": 390000,
+     "rsu_same_day_sale_proceeds": 41200,
+     "basis_reported": 0,
+     "true_basis": 42000,
+     "total_tax_filed": 86252.6
+    },
+    "engine_inputs_2025": {
+     "wages": 522500,
+     "interest": 2500,
+     "ord_div": 4000,
+     "qual_div": 4000,
+     "st_gain": 1500.0,
+     "lt_gain": 35000,
+     "other_income": 6755.0,
+     "salt_paid": 62600,
+     "mortgage_int": 26000,
+     "charity": 15000,
+     "withholding": 118500
+    },
+    "reference_2025_return": {
+     "agi": 572255.0,
+     "ss_taxable": 0.0,
+     "deduction": 59323.5,
+     "itemizing": true,
+     "salt_cap": 18323.5,
+     "sch1a": {},
+     "qbi": 0.0,
+     "taxable_income": 512931.5,
+     "regular_tax": 111634.08,
+     "amt": 0.0,
+     "cdcc": 0.0,
+     "savers": 0.0,
+     "ctc_nonref": 0.0,
+     "actc": 0.0,
+     "eitc": 0.0,
+     "se_tax": 0.0,
+     "niit": 1634.0,
+     "total_tax": 113268.08,
+     "refundable": 0.0,
+     "refund": 5231.92
+    },
+    "reference_note": "Additional Medicare Tax (Form 8959) is ignored in the reference; it is unchanged by every opportunity. The naive return using the 1099-B as printed owes $58,887.67 more."
+   },
+   "documents": [
+    {
+     "id": "h3_w2_priya",
+     "title": "2025 Form W-2 — Lumen Systems (Priya)",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "rsu_basis",
+      "espp_basis"
+     ],
+     "text": "Box 1 $312,500; box 2 $78,000; box 12 D $23,500; box 14 'RSU $120,000' and 'ESPP $6,000'; box 17 CA $30,500."
+    },
+    {
+     "id": "h3_w2_tom",
+     "title": "2025 Form W-2 — Corvid Health (Tom)",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "tom_401k_missed"
+     ],
+     "text": "Box 1 $210,000; box 2 $40,500; box 12 D $10,000 (limit was $23,500); box 17 CA $17,500."
+    },
+    {
+     "id": "h3_1099b",
+     "title": "Consolidated Form 1099 (2025) — equity-plan brokerage",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "rsu_basis",
+      "espp_basis",
+      "donate_shares_missed"
+     ],
+     "text": "Short-term: RSU same-day sales $118,500 proceeds, cost basis $0.00 ('not reported to IRS'); ESPP sale $43,000 proceeds, basis $34,000. Long-term: RSU lot vested 3/2022, $60,000 proceeds, basis $0.00. Qualified dividends $4,000; interest $2,500."
+    },
+    {
+     "id": "h3_1099r",
+     "title": "Forms 1099-R (2025) — Roth conversions",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "prorata_missed"
+     ],
+     "text": "Priya: $7,000 converted traditional→Roth, code 2, box 2a $7,000 'taxable amount not determined'. Tom: same, $7,000."
+    },
+    {
+     "id": "h3_supp",
+     "title": "Supplemental statement — adjusted cost basis (equity portal)",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "rsu_basis",
+      "espp_basis",
+      "amend_2022"
+     ],
+     "text": "Adjusted basis for 2025 sales: RSU same-day lots $120,000 (vest value already in W-2); RSU 3/2022 lot $25,000; ESPP lot $40,000 (adds $6,000 ordinary income). Report on Form 8949 with code B. Prior-year statements (2022–2024) available."
+    },
+    {
+     "id": "h3_household",
+     "title": "Household tax & giving file (2025)",
+     "facility": "cabinet",
+     "layer": 1,
+     "clue_for": [
+      "donate_shares_missed",
+      "daf_bunch_2026"
+     ],
+     "text": "Property tax paid $14,600; mortgage interest (Form 1098) $26,000; December checks: alma mater annual fund $10,000, Valley Food Bank $5,000."
+    },
+    {
+     "id": "h3_fund_activity",
+     "title": "Taxable account activity 2025 (brokerage portal)",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "tlh_missed"
+     ],
+     "text": "2/19/2025 bought $150,000 S&P 500 index fund; value 4/8/2025 $121,650; 12/31/2025 $167,100; no sales."
+    },
+    {
+     "id": "h3_screen_april",
+     "title": "Markets: S&P 500 ends 18.9% below its Feb. 19 record (April 8, 2025)",
+     "facility": "screen",
+     "layer": 1,
+     "clue_for": [
+      "tlh_missed"
+     ],
+     "text": "Tariff selloff: S&P 500 closed at 4,982.77 on 4/8/2025, ~19% under its 2/19 record close; the index finished 2025 near 6,845 (+16%)."
+    },
+    {
+     "id": "h3_401k_plan",
+     "title": "Priya's 401(k) plan summary — rollovers in",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "prorata_missed",
+      "ira_rollin_2026"
+     ],
+     "text": "'The Plan accepts rollover contributions of pre-tax IRA and prior-employer plan money at any time.'"
+    },
+    {
+     "id": "h3_vault_rollover",
+     "title": "2017 rollover confirmation + Form 5498 (moving box)",
+     "facility": "vault",
+     "layer": 2,
+     "clue_for": [
+      "prorata_missed",
+      "ira_rollin_2026"
+     ],
+     "text": "Priya's 2016-job 401(k) rolled into a traditional 'Rollover IRA' in 2017; Form 5498 FMV $181,400 at 12/31/2024; 12/31/2025 statement $193,000."
+    },
+    {
+     "id": "h3_vault_2022",
+     "title": "2022 Form 1040 with Form 8949 (copy)",
+     "facility": "vault",
+     "layer": 2,
+     "clue_for": [
+      "amend_2022"
+     ],
+     "text": "Form 8949 Part I: RSU same-day sale proceeds $41,200, basis $0, gain $41,200; W-2 box 14 'RSU $42,000'; taxable income $389,200; total tax $86,252.60."
+    },
+    {
+     "id": "h3_phone",
+     "title": "Call with Priya and Tom (March 2026)",
+     "facility": "phone",
+     "layer": 3,
+     "clue_for": [
+      "daf_bunch_2026",
+      "donate_shares_missed"
+     ],
+     "text": "'We give about $15,000 a year — the alma mater and the food bank — and plan to keep that up at least three more years. We just write checks in December.'"
+    },
+    {
+     "id": "h3_flyer_ira",
+     "title": "Bank flyer: 'Lower your 2025 tax bill — IRA by April 15!'",
+     "facility": "flyers",
+     "layer": 0,
+     "clue_for": [],
+     "text": "'Every dollar you put in a traditional IRA by April 15 comes off your 2025 taxes — up to $14,000 for couples!'"
+    },
+    {
+     "id": "h3_email_salt",
+     "title": "Coworker email: 'beat the SALT cap'",
+     "facility": "inbox",
+     "layer": 1,
+     "clue_for": [],
+     "text": "'Pay your April property-tax installment and CA balance now and put them on your 2025 return — the cap went up to $40k!'"
+    }
+   ],
+   "opportunities": [
+    {
+     "id": "rsu_basis",
+     "title": "Fix the $0 RSU basis on the 1099-B",
+     "section": "file",
+     "layer": 1,
+     "value": 56559.67,
+     "value_math": "Basis +$145,000 ($120,000 ST + $25,000 LT) removes phantom gains: AGI $717,255 → $572,255, SALT cap $10,000 → $18,323.50, NIIT falls; tax $169,827.75 → $113,268.08",
+     "needs": [
+      "h3_1099b",
+      "h3_supp",
+      "h3_w2_priya"
+     ],
+     "cite": "Treas. Reg. §1.6045-1(d)(6); Pub 525 (restricted stock units); Form 8949 code B",
+     "legality": "clear"
+    },
+    {
+     "id": "espp_basis",
+     "title": "Add the $6,000 ESPP ordinary income to basis",
+     "section": "file",
+     "layer": 0,
+     "value": 2724.0,
+     "value_math": "Basis $34,000 → $40,000 (W-2 box 14 shows the $6,000): tax $115,992.08 → $113,268.08 = $6,000 × (32% + 3.8% NIIT + 30% × 32% SALT-cap knock-on)",
+     "needs": [
+      "h3_w2_priya",
+      "h3_1099b"
+     ],
+     "cite": "IRC §421(b), §423; Pub 525; Form 8949 code B",
+     "legality": "clear"
+    },
+    {
+     "id": "amend_2022",
+     "title": "Amend 2022 for the same $0-basis RSU sale",
+     "section": "open",
+     "layer": 2,
+     "value": 15036.0,
+     "value_math": "2022: gain $41,200 → loss $800 (basis $42,000): 32% × $42,000 = $13,440 + NIIT $1,596 = $15,036; claim by April 15, 2026",
+     "needs": [
+      "h3_vault_2022",
+      "h3_supp"
+     ],
+     "cite": "IRC §6511; Form 1040-X",
+     "legality": "clear"
+    },
+    {
+     "id": "tlh_missed",
+     "title": "Harvest the April 2025 dip",
+     "section": "missed",
+     "layer": 1,
+     "value": 8306.4,
+     "value_math": "Sell 4/8 at $121,650 (loss $28,350), buy a non-identical total-market fund: tax $113,268.08 → $104,961.68 (offsets LTCG, cuts NIIT, raises SALT cap); a deferral, since the new lot's basis is lower",
+     "needs": [
+      "h3_fund_activity",
+      "h3_screen_april"
+     ],
+     "cite": "IRC §1211, §1091",
+     "legality": "clear"
+    },
+    {
+     "id": "tom_401k_missed",
+     "title": "Tom left $13,500 of 401(k) room unused",
+     "section": "missed",
+     "layer": 0,
+     "value": 5616.0,
+     "value_math": "Defer $23,500 instead of $10,000: AGI −$13,500 inside the $500k–$600k SALT phase-down: $13,500 × (32% ordinary bracket + 30% × 32% cap recapture) = $5,616",
+     "needs": [
+      "h3_w2_tom"
+     ],
+     "cite": "IRC §402(g); Notice 2024-80",
+     "legality": "clear"
+    },
+    {
+     "id": "prorata_missed",
+     "title": "Old rollover IRA spoiled Priya's backdoor Roth",
+     "section": "missed",
+     "layer": 2,
+     "value": 2810.08,
+     "value_math": "Form 8606: $7,000 × $193,000/$200,000 = $6,755 of the conversion taxable; rolling the IRA into her 401(k) before 12/31/2025 would have made it $0 → $2,810",
+     "needs": [
+      "h3_1099r",
+      "h3_vault_rollover",
+      "h3_401k_plan"
+     ],
+     "cite": "IRC §408(d)(2); Form 8606 instructions",
+     "legality": "clear"
+    },
+    {
+     "id": "donate_shares_missed",
+     "title": "Gave $15,000 cash instead of appreciated shares",
+     "section": "missed",
+     "layer": 1,
+     "value": 2485.0,
+     "value_math": "Give $15,000 of the 3/2022 RSU lot (basis $6,250) and keep the cash: $8,750 less LTCG at 15% + 3.8% NIIT + SALT-cap knock-on = $2,485; deduction unchanged",
+     "needs": [
+      "h3_household",
+      "h3_1099b",
+      "h3_supp"
+     ],
+     "cite": "IRC §170(e)(1), §170(b)(1)(C)",
+     "legality": "clear"
+    },
+    {
+     "id": "ira_rollin_2026",
+     "title": "Roll the old IRA into the 401(k) before the 2026 backdoor",
+     "section": "next",
+     "layer": 2,
+     "value": 3022.24,
+     "value_math": "2026: with ~$206,510 still in the IRA, $7,237 of a $7,500 conversion is taxable; in the 32% + 2026 SALT phase-down zone ($505k start) that costs $3,022",
+     "needs": [
+      "h3_vault_rollover",
+      "h3_401k_plan"
+     ],
+     "cite": "IRC §408(d)(3), §408A; Form 8606",
+     "legality": "clear"
+    },
+    {
+     "id": "daf_bunch_2026",
+     "title": "Bunch three years of giving into a DAF in 2026",
+     "section": "next",
+     "layer": 3,
+     "value": 1809.6,
+     "value_math": "New 2026 floor (0.5% of AGI ≈ $2,828) hits once instead of three times: +$9,600 in 2026 vs −$3,895 in each of 2027–28 = +$1,810 undiscounted (more if funded with appreciated shares)",
+     "needs": [
+      "h3_phone",
+      "h3_household"
+     ],
+     "cite": "IRC §170 as amended by OBBBA (0.5%-of-AGI floor, eff. 2026)",
+     "legality": "clear"
+    }
+   ],
+   "decoys": [
+    {
+     "id": "deduct_ira",
+     "lure": "Put $7,000 each in a traditional IRA by April 15 and deduct it",
+     "doc": "h3_flyer_ira",
+     "why_wrong": "Both are covered by workplace plans with MAGI far above $146,000, so the contributions aren't deductible; claiming $14,000 understates tax by $5,824 (repaid with interest) and risks a 20% negligence penalty (§6662(b)(1)); value = that penalty",
+     "value": -1164.8
+    },
+    {
+     "id": "prepay_salt",
+     "lure": "Pay the April 2026 property tax and CA balance now and deduct them on 2025",
+     "doc": "h3_email_salt",
+     "why_wrong": "Taxes are deductible when paid (2026), and their 2025 SALT ($62,600) already exceeds the phased-down $18,323.50 cap — zero benefit",
+     "value": 0
+    }
+   ],
+   "dry_wells": [
+    {
+     "id": "h3_dry_10k",
+     "title": "Lumen Systems 10-K and stock chart",
+     "facility": "screen"
+    },
+    {
+     "id": "h3_dry_commuter",
+     "title": "Tom's commuter-benefits statement",
+     "facility": "portal"
+    }
+   ]
+  },
+  {
+   "id": "haddad_co",
+   "name": "Noor Haddad",
+   "brief": "Freelance brand designer, a friend's $3,000 thank-you, late estimates",
+   "filing_status": "single",
+   "state": "CO",
+   "members": [
+    {
+     "name": "Noor Haddad",
+     "age": 31,
+     "role": "self-employed brand designer (sole proprietor, no employees)"
+    }
+   ],
+   "facts": {
+    "gross_receipts": 138000,
+    "receipts_1099_nec": 96500,
+    "receipts_direct_ach": 41500,
+    "expenses_before_home_and_car": 16500,
+    "home_office": {
+     "office_sqft": 180,
+     "home_sqft": 1200,
+     "business_pct": 0.15,
+     "rent": 25200,
+     "insurance_utilities": 2640,
+     "regular_method": 4176.0,
+     "simplified_method": 900
+    },
+    "business_miles": 3200,
+    "mileage_deduction": 2240.0,
+    "schedule_c_net": 115084.0,
+    "marketplace_premiums": 5400,
+    "aptc": 0,
+    "interest_1099int": 640,
+    "friend_payment": {
+     "amount": 3000,
+     "date": "2025-08-24",
+     "channel": "Venmo (business profile)",
+     "memo": "for the move — thank you!!",
+     "form_1099k": "none (below $20,000)"
+    },
+    "estimated_payments": {
+     "2025-04-15": 3000,
+     "2025-06-16": 3000,
+     "2025-09-15": 3000,
+     "2026-01-15": 7000
+    },
+    "prior_year_total_tax_2024": 21400,
+    "prior_year_agi_2024": 97800,
+    "savings_balance": 52000,
+    "sep_max_2025": 21391,
+    "required_annual_payment": 21400.0,
+    "engine_inputs_2025": {
+     "sched_c_net": 115084.0,
+     "sehi_premiums": 5400,
+     "interest": 640,
+     "est_payments": 16000
+    },
+    "reference_2025_return": {
+     "agi": 102193.57,
+     "ss_taxable": 0.0,
+     "deduction": 15750.0,
+     "itemizing": false,
+     "salt_cap": 40000.0,
+     "sch1a": {},
+     "qbi": 17288.71,
+     "taxable_income": 69154.86,
+     "regular_tax": 10128.07,
+     "amt": 0.0,
+     "cdcc": 0.0,
+     "savers": 0.0,
+     "ctc_nonref": 0.0,
+     "actc": 0.0,
+     "eitc": 0.0,
+     "se_tax": 16260.85,
+     "niit": 0.0,
+     "total_tax": 26388.92,
+     "refundable": 0.0,
+     "refund": -10388.92
+    },
+    "reference_note": "Reference = home office (regular), mileage, SEHI, QBI claimed, gift excluded, no SEP/solo 401(k) yet. Balance due $10,388.92 plus Form 2210 penalty ≈ $368.12."
+   },
+   "documents": [
+    {
+     "id": "h4_1099nec",
+     "title": "Forms 1099-NEC (2025) — six clients",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "qbi"
+     ],
+     "text": "Nonemployee compensation totals $96,500 (largest: $42,000 from a Denver brewery). Clipped behind them: Form 1099-INT from her online savings bank, $640."
+    },
+    {
+     "id": "h4_books",
+     "title": "2025 income & expense spreadsheet",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "qbi",
+      "gift_exclusion",
+      "home_office",
+      "sep_open"
+     ],
+     "text": "Gross receipts $138,000 ($96,500 1099-NEC + $41,500 direct ACH); expenses $16,500. Venmo business profile also shows +$3,000 on 8/24 from Jess K., memo 'for the move — thank you!!'."
+    },
+    {
+     "id": "h4_1095a",
+     "title": "Form 1095-A (2025) — Connect for Health Colorado",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "sehi"
+     ],
+     "text": "Self-only plan Jan–Dec 2025; premiums $5,400; advance premium tax credit $0."
+    },
+    {
+     "id": "h4_2024_return",
+     "title": "2024 Form 1040 (copy)",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "estimates_missed"
+     ],
+     "text": "AGI $97,800; total tax $21,400 (income tax + SE tax)."
+    },
+    {
+     "id": "h4_lease",
+     "title": "Apartment lease + renter's insurance and utility bills",
+     "facility": "cabinet",
+     "layer": 1,
+     "clue_for": [
+      "home_office"
+     ],
+     "text": "1,200 sq ft, rent $2,100/month ($25,200/yr); insurance and utilities $2,640; the 180 sq ft second bedroom is used only as her studio."
+    },
+    {
+     "id": "h4_est_payments",
+     "title": "IRS online account — 2025 estimated payments",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "estimates_missed"
+     ],
+     "text": "$3,000 on 4/15/2025; $3,000 on 6/16/2025; $3,000 on 9/15/2025; $7,000 on 1/15/2026 — total $16,000."
+    },
+    {
+     "id": "h4_inbox_jess",
+     "title": "Email from Jess K. (Aug 25, 2025)",
+     "facility": "inbox",
+     "layer": 1,
+     "clue_for": [
+      "gift_exclusion"
+     ],
+     "text": "'Please don't argue — this isn't payment, you'd never let us pay you. It's a thank-you for giving up two weekends, and happy early 30th. Spend it on Lisbon!'"
+    },
+    {
+     "id": "h4_pub560",
+     "title": "IRS Pub 560 — SEP rules for the self-employed",
+     "facility": "library",
+     "layer": 1,
+     "clue_for": [
+      "sep_open"
+     ],
+     "text": "2025 SEP contributions may be made up to the return due date including extensions; owner's rate for a 25% plan is 20% of net profit after the half-SE-tax deduction; cap $70,000."
+    },
+    {
+     "id": "h4_secure317",
+     "title": "SECURE 2.0 §317 — retroactive first-year solo 401(k) deferrals",
+     "facility": "law",
+     "layer": 2,
+     "clue_for": [
+      "solo401k_open"
+     ],
+     "text": "A sole proprietor with no employees who adopts a new 401(k) after year-end may make employee deferrals for that prior year until the unextended due date (April 15, 2026)."
+    },
+    {
+     "id": "h4_notice_2026_5",
+     "title": "IRS Notice 2026-5 — bronze plans and HSAs",
+     "facility": "library",
+     "layer": 2,
+     "clue_for": [
+      "hsa_2026"
+     ],
+     "text": "From Jan 1, 2026, bronze and catastrophic plans available through an Exchange are treated as HSA-compatible HDHPs."
+    },
+    {
+     "id": "h4_2026_plan",
+     "title": "2026 Marketplace enrollment confirmation",
+     "facility": "portal",
+     "layer": 1,
+     "clue_for": [
+      "hsa_2026"
+     ],
+     "text": "Enrolled Jan 1, 2026 in an Exchange bronze plan, self-only, deductible $7,500; premium $4,560/yr; no other coverage."
+    },
+    {
+     "id": "h4_phone",
+     "title": "Call with Noor (March 2026)",
+     "facility": "phone",
+     "layer": 3,
+     "clue_for": [
+      "mileage",
+      "sep_open",
+      "solo401k_open"
+     ],
+     "text": "'I drive to clients and the print shop constantly — my calendar has every trip, about 3,200 miles. No log app. I've got about $52,000 sitting in savings if retirement money helps.'"
+    },
+    {
+     "id": "h4_flyer_truck",
+     "title": "Dealer flyer: 'Section 179 — write off the whole truck!'",
+     "facility": "flyers",
+     "layer": 0,
+     "clue_for": [],
+     "text": "'Business owners: a 6,000+ lb pickup qualifies for Section 179 — deduct up to 100% and wipe out your tax bill!'"
+    },
+    {
+     "id": "h4_email_scorp",
+     "title": "Email from a 'business coach' (Feb 2026)",
+     "facility": "inbox",
+     "layer": 1,
+     "clue_for": [],
+     "text": "'Elect S-corp now and we'll recast your 2025 profit as distributions — save 15.3% self-employment tax. $1,800 all-in.'"
+    }
+   ],
+   "opportunities": [
+    {
+     "id": "qbi",
+     "title": "Qualified business income deduction",
+     "section": "file",
+     "layer": 0,
+     "value": 3803.52,
+     "value_math": "20% × min(QBI $101,553.57, taxable income before QBI $86,443.57) = $17,288.71 × 22% = $3,803.52",
+     "needs": [
+      "h4_books",
+      "h4_1099nec"
+     ],
+     "cite": "IRC §199A; Form 8995",
+     "legality": "clear"
+    },
+    {
+     "id": "sehi",
+     "title": "Self-employed health insurance deduction",
+     "section": "file",
+     "layer": 0,
+     "value": 950.4,
+     "value_math": "$5,400 × 22% × (1 − 20% QBI give-back) = $950.40 (does not reduce SE tax)",
+     "needs": [
+      "h4_1095a",
+      "h4_books"
+     ],
+     "cite": "IRC §162(l); Form 7206",
+     "legality": "clear"
+    },
+    {
+     "id": "home_office",
+     "title": "Home office — regular method",
+     "section": "file",
+     "layer": 1,
+     "value": 1273.1,
+     "value_math": "15% × $27,840 = $4,176 × (14.13% SE tax + 22% on the 74.3% that survives half-SE and QBI) = $1,273.10 ($998.73 more than the $900 simplified method)",
+     "needs": [
+      "h4_lease",
+      "h4_books"
+     ],
+     "cite": "IRC §280A(c)(1); Form 8829; Rev. Proc. 2013-13",
+     "legality": "clear"
+    },
+    {
+     "id": "gift_exclusion",
+     "title": "Treat the friend's $3,000 as a gift, not receipts",
+     "section": "file",
+     "layer": 1,
+     "value": 914.58,
+     "value_math": "Booked as Schedule C receipts it costs 14.13% SE tax + 22% × 74.3% = $914.58; Jess's email shows detached generosity, so it is excludable",
+     "needs": [
+      "h4_inbox_jess",
+      "h4_books"
+     ],
+     "cite": "IRC §102(a); Commissioner v. Duberstein, 363 U.S. 278 (1960)",
+     "legality": "gray"
+    },
+    {
+     "id": "mileage",
+     "title": "Business mileage at 70¢ from her calendar",
+     "section": "file",
+     "layer": 3,
+     "value": 682.89,
+     "value_math": "3,200 mi × $0.70 = $2,240 × 30.49% (SE tax + income tax after QBI) = $682.89; needs a log rebuilt from the calendar",
+     "needs": [
+      "h4_phone"
+     ],
+     "cite": "IRC §162, §274(d); Notice 2025-5",
+     "legality": "clear"
+    },
+    {
+     "id": "sep_open",
+     "title": "SEP-IRA contribution for 2025",
+     "section": "open",
+     "layer": 1,
+     "value": 3764.82,
+     "value_math": "20% × ($115,084 − $8,130.43) = $21,391 × 22% × 0.8 (QBI give-back) = $3,764.82; deadline = filing date incl. extension; funded from her $52,000 savings",
+     "needs": [
+      "h4_pub560",
+      "h4_books"
+     ],
+     "cite": "IRC §404(h), §408(k); Pub 560",
+     "legality": "clear"
+    },
+    {
+     "id": "solo401k_open",
+     "title": "Retroactive solo 401(k) deferral by April 15",
+     "section": "open",
+     "layer": 2,
+     "value": 2612.71,
+     "value_math": "Adopt a solo 401(k) before 4/15/2026 and add a $23,500 2025 employee deferral on top of the $21,391 employer amount: tax $22,624.10 → $20,011.40 (drops into 12%)",
+     "needs": [
+      "h4_secure317",
+      "h4_books"
+     ],
+     "cite": "IRC §401(b)(2) as amended by SECURE 2.0 §317",
+     "legality": "clear"
+    },
+    {
+     "id": "estimates_missed",
+     "title": "Underpaid quarterly estimates",
+     "section": "missed",
+     "layer": 1,
+     "value": 368.12,
+     "value_math": "Safe harbor = 100% of 2024 tax $21,400 → $5,350 per quarter; she paid $3,000/$3,000/$3,000/$7,000 → Form 2210 regular-method penalty at 7% ≈ $368.12",
+     "needs": [
+      "h4_2024_return",
+      "h4_est_payments"
+     ],
+     "cite": "IRC §6654(d)(1)(B); Form 2210",
+     "legality": "clear"
+    },
+    {
+     "id": "hsa_2026",
+     "title": "Open an HSA alongside the 2026 bronze plan",
+     "section": "next",
+     "layer": 2,
+     "value": 774.4,
+     "value_math": "2026 self-only limit $4,400 × 22% × 0.8 (QBI is taxable-income-limited) = $774.40",
+     "needs": [
+      "h4_2026_plan",
+      "h4_notice_2026_5"
+     ],
+     "cite": "IRC §223 as amended by OBBBA; Notice 2026-5; Rev. Proc. 2025-19",
+     "legality": "clear"
+    }
+   ],
+   "decoys": [
+    {
+     "id": "truck_179",
+     "lure": "Buy a heavy pickup and write it all off under Section 179",
+     "doc": "h4_flyer_truck",
+     "why_wrong": "2025 is closed (property must be placed in service in 2025); at ~15% business use a truck fails the >50% listed-property test, so no §179 or bonus — $58,000 for a vehicle that sheds ~$10,000 of value in year one to save under $300",
+     "value": -9700.0
+    },
+    {
+     "id": "scorp_retro",
+     "lure": "Elect S-corp now and recast 2025 profit as distributions",
+     "doc": "h4_email_scorp",
+     "why_wrong": "She had no corporation/LLC and ran no payroll in 2025; late-election relief cannot convert past Schedule C profit, so the $1,800 fee buys no 2025 savings",
+     "value": -1800.0
+    }
+   ],
+   "dry_wells": [
+    {
+     "id": "h4_dry_salestax",
+     "title": "Colorado sales-tax license renewal letter (no taxable sales)",
+     "facility": "cabinet"
+    }
+   ]
+  },
+  {
+   "id": "vega_nv",
+   "name": "Marisol Vega",
+   "brief": "Hairstylist mom with tips, a big-refund habit, unfiled 2022",
+   "filing_status": "hoh",
+   "state": "NV",
+   "members": [
+    {
+     "name": "Marisol Vega",
+     "age": 29,
+     "role": "hairstylist, W-2 employee at a salon"
+    },
+    {
+     "name": "Diego Vega",
+     "age": 9,
+     "role": "son, lives with her all year"
+    }
+   ],
+   "facts": {
+    "wages_excluding_tips": 33200,
+    "tips_reported_box7": 5200,
+    "w2_box1": 38400,
+    "fed_withholding": 2750,
+    "w4_status": "Single, no dependents",
+    "employer_retirement_plan": false,
+    "credit_card_balance_avg": 3800,
+    "credit_card_apr": 0.2799,
+    "prep_fees_last_year": {
+     "storefront_prep": 289,
+     "refund_transfer": 59
+    },
+    "car_2025": {
+     "old_car_died": "2025-09-16",
+     "bought": "2019 Toyota Corolla, $14,500, dealer, 2025-10-04",
+     "same_dealer_listing": "2020 Chevrolet Bolt EV, $14,900 (dealer registered for clean-vehicle credit transfers)"
+    },
+    "tax_2022": {
+     "filed": false,
+     "w2_wages": 17400,
+     "withholding": 410,
+     "diego_age": 6,
+     "filing_status_available": "hoh"
+    },
+    "engine_inputs_2025": {
+     "wages": 38400,
+     "tips": 5200,
+     "n_ctc": 1,
+     "eitc_children": 1,
+     "withholding": 2750
+    },
+    "reference_2025_return": {
+     "agi": 38400.0,
+     "ss_taxable": 0.0,
+     "deduction": 23625.0,
+     "itemizing": false,
+     "salt_cap": 40000.0,
+     "sch1a": {
+      "tips": 5200.0
+     },
+     "qbi": 0.0,
+     "taxable_income": 9575.0,
+     "regular_tax": 957.5,
+     "amt": 0.0,
+     "cdcc": 0.0,
+     "savers": 0.0,
+     "ctc_nonref": 957.5,
+     "actc": 1242.5,
+     "eitc": 1923.01,
+     "se_tax": 0.0,
+     "niit": 0.0,
+     "total_tax": 0.0,
+     "refundable": 3165.51,
+     "refund": 5915.51
+    },
+    "reference_note": "Reference = HOH, tips deduction, CTC/ACTC, EITC (formula), no IRA contribution yet. Values for 2022 use Rev. Proc. 2021-45."
+   },
+   "documents": [
+    {
+     "id": "h5_w2",
+     "title": "2025 Form W-2 — Shear Luck Salon",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "tips_deduction",
+      "eitc",
+      "savers_open"
+     ],
+     "text": "Box 1 $38,400.00; box 2 $2,750.00; box 7 social security tips $5,200.00; box 13 retirement plan: unchecked."
+    },
+    {
+     "id": "h5_w4",
+     "title": "Form W-4 on file at the salon (2023)",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "w4_fix_2026"
+     ],
+     "text": "Step 1(c): Single. Step 3 (dependents): blank. Step 4(c) extra withholding: $0."
+    },
+    {
+     "id": "h5_school",
+     "title": "Diego's school enrollment letter + apartment lease",
+     "facility": "folder",
+     "layer": 0,
+     "clue_for": [
+      "eitc"
+     ],
+     "text": "Diego Vega, grade 4, born 2016; same address as Marisol's lease for all of 2025 (and since 2020)."
+    },
+    {
+     "id": "h5_occ_list",
+     "title": "Treasury list of tipped occupations",
+     "facility": "library",
+     "layer": 1,
+     "clue_for": [
+      "tips_deduction"
+     ],
+     "text": "'Barbers, Hairdressers, Hairstylists, and Cosmetologists' appear under Personal Appearance and Wellness."
+    },
+    {
+     "id": "h5_form8880",
+     "title": "Form 8880 instructions — Saver's Credit (2025)",
+     "facility": "library",
+     "layer": 1,
+     "clue_for": [
+      "savers_open"
+     ],
+     "text": "Head of household: 50% / 20% / 10% of up to $2,000 contributed if AGI ≤ $35,625 / $38,250 / $59,250. IRA contributions for 2025 count if made by April 15, 2026."
+    },
+    {
+     "id": "h5_freefile",
+     "title": "IRS: free filing options for 2026",
+     "facility": "library",
+     "layer": 1,
+     "clue_for": [
+      "free_file"
+     ],
+     "text": "IRS Free File guided software is free for AGI of $89,000 or less; VITA sites prepare returns free for many workers; Direct File is not available this season."
+    },
+    {
+     "id": "h5_receipt_2024",
+     "title": "QuickCash Tax receipt for the 2024 return",
+     "facility": "cabinet",
+     "layer": 1,
+     "clue_for": [
+      "free_file"
+     ],
+     "text": "Preparation fee $289.00 and refund-transfer fee $59.00, both taken out of her refund."
+    },
+    {
+     "id": "h5_car",
+     "title": "Used-car contract (Oct 4, 2025) + tow receipt (Sept 16)",
+     "facility": "cabinet",
+     "layer": 1,
+     "clue_for": [
+      "used_ev_missed"
+     ],
+     "text": "Engine failure and tow on 9/16/2025; bought a 2019 Corolla for $14,500 on 10/4/2025 at Desert Auto Sales, whose lot also listed a 2020 Chevy Bolt EV at $14,900."
+    },
+    {
+     "id": "h5_screen_ev",
+     "title": "News: used-EV tax credit ends September 30, 2025",
+     "facility": "screen",
+     "layer": 2,
+     "clue_for": [
+      "used_ev_missed"
+     ],
+     "text": "OBBBA ended the up-to-$4,000 used clean vehicle credit for vehicles acquired after 9/30/2025; buyers could take it at the dealer as a price cut."
+    },
+    {
+     "id": "h5_vault_2022",
+     "title": "Shoebox: 2022 Form W-2 (salon assistant job)",
+     "facility": "vault",
+     "layer": 2,
+     "clue_for": [
+      "file_2022"
+     ],
+     "text": "2022 wages $17,400.00; federal income tax withheld $410.00."
+    },
+    {
+     "id": "h5_screen_2022",
+     "title": "IRS: unclaimed 2022 refunds — April 15, 2026 deadline",
+     "facility": "screen",
+     "layer": 1,
+     "clue_for": [
+      "file_2022"
+     ],
+     "text": "About $1.2 billion in 2022 refunds unclaimed; non-filers have until April 15, 2026, after which the money goes to the Treasury; 2022 EITC was worth up to $6,935."
+    },
+    {
+     "id": "h5_phone",
+     "title": "Call with Marisol (March 2026)",
+     "facility": "phone",
+     "layer": 3,
+     "clue_for": [
+      "file_2022"
+     ],
+     "text": "'I didn't file for 2022 — a lady at work said I made too little to have to. Diego's lived with me his whole life.'"
+    },
+    {
+     "id": "h5_flyer_advance",
+     "title": "Storefront flyer: 'Get your refund TODAY — up to $4,000!'",
+     "facility": "flyers",
+     "layer": 0,
+     "clue_for": [],
+     "text": "'0% APR refund advance! Walk out with cash today' (fine print: available with paid preparation; refund-transfer fee applies)."
+    },
+    {
+     "id": "h5_text_coworker",
+     "title": "Text from a coworker",
+     "facility": "inbox",
+     "layer": 1,
+     "clue_for": [],
+     "text": "'Claim zero and add $50 a check — I got a $6k refund last year, it's like a savings account!'"
+    }
+   ],
+   "opportunities": [
+    {
+     "id": "tips_deduction",
+     "title": "No-tax-on-tips deduction",
+     "section": "file",
+     "layer": 0,
+     "value": 520.0,
+     "value_math": "$5,200 box-7 tips × 10% = $520; tax stays above the $500 the refundable CTC can't reach, so the whole saving survives",
+     "needs": [
+      "h5_w2"
+     ],
+     "cite": "IRC §224; Notice 2025-69; Schedule 1-A Part II",
+     "legality": "clear"
+    },
+    {
+     "id": "eitc",
+     "title": "Earned income tax credit with Diego",
+     "section": "file",
+     "layer": 0,
+     "value": 1923.01,
+     "value_math": "$4,328 − 15.98% × ($38,400 − $23,350) = $1,923.01 (formula; the IRS table lands within a few dollars)",
+     "needs": [
+      "h5_w2",
+      "h5_school"
+     ],
+     "cite": "IRC §32; Rev. Proc. 2024-40 §2.06",
+     "legality": "clear"
+    },
+    {
+     "id": "free_file",
+     "title": "File free instead of at the storefront",
+     "section": "file",
+     "layer": 1,
+     "value": 348.0,
+     "value_math": "AGI $38,400 ≤ $89,000 Free File limit: avoids $289 prep + $59 refund-transfer fee (welfare, not tax)",
+     "needs": [
+      "h5_freefile",
+      "h5_receipt_2024"
+     ],
+     "cite": "IRS Free File program",
+     "legality": "clear"
+    },
+    {
+     "id": "savers_open",
+     "title": "Saver's Credit via a $2,000 IRA contribution by April 15",
+     "section": "open",
+     "layer": 1,
+     "value": 457.5,
+     "value_math": "Traditional IRA $2,000: AGI $36,400 → 20% credit $400 + $200 less tax, but income tax can only usefully fall to $500 before the $1,700 ACTC cap binds: $957.50 − $500 = $457.50",
+     "needs": [
+      "h5_w2",
+      "h5_form8880"
+     ],
+     "cite": "IRC §25B, §219; Form 8880; Schedule 8812 Credit Limit Worksheet A",
+     "legality": "clear"
+    },
+    {
+     "id": "file_2022",
+     "title": "File the never-filed 2022 return before April 15, 2026",
+     "section": "open",
+     "layer": 3,
+     "value": 5643.0,
+     "value_math": "2022 HOH with Diego (6): EITC $3,733 (max, earned income $17,400 < $20,130) + ACTC $1,500 + $410 withholding back = $5,643",
+     "needs": [
+      "h5_vault_2022",
+      "h5_phone",
+      "h5_screen_2022"
+     ],
+     "cite": "IRC §32, §24, §6511; Rev. Proc. 2021-45",
+     "legality": "clear"
+    },
+    {
+     "id": "used_ev_missed",
+     "title": "Missed the used-EV credit by four days",
+     "section": "missed",
+     "layer": 2,
+     "value": 4000.0,
+     "value_math": "The $14,900 Bolt bought by 9/30/2025: min(30% × $14,900, $4,000) = $4,000 taken as a price cut via dealer transfer, so not limited by her ~$0 income tax (HOH MAGI $38,400 ≤ $112,500); she bought the gas car 10/4",
+     "needs": [
+      "h5_car",
+      "h5_screen_ev"
+     ],
+     "cite": "IRC §25E as amended by OBBBA (no credit for vehicles acquired after 9/30/2025)",
+     "legality": "clear"
+    },
+    {
+     "id": "w4_fix_2026",
+     "title": "Fix the W-4 for 2026 (HOH + child credit)",
+     "section": "next",
+     "layer": 0,
+     "value": 384.86,
+     "value_math": "~$2,750 over-withheld sits with the IRS while she carries a 27.99% card balance: $2,750 × ½-year average × 27.99% ≈ $385 interest avoided (welfare)",
+     "needs": [
+      "h5_w4",
+      "h5_w2"
+     ],
+     "cite": "Form W-4 (2026); IRS Tax Withholding Estimator",
+     "legality": "clear"
+    }
+   ],
+   "decoys": [
+    {
+     "id": "big_refund",
+     "lure": "Claim zero and add extra withholding — a big refund is free savings",
+     "doc": "h5_text_coworker",
+     "why_wrong": "A refund is her own money returned without interest; with a 27.99% card balance, over-withholding $2,750 costs about $385 a year",
+     "value": -384.86
+    },
+    {
+     "id": "refund_advance",
+     "lure": "Take a 0% refund advance and walk out with cash today",
+     "doc": "h5_flyer_advance",
+     "why_wrong": "The 'free' advance requires $289 paid prep plus a $59 refund-transfer fee; free e-file with direct deposit pays in about three weeks",
+     "value": -348.0
+    }
+   ],
+   "dry_wells": [
+    {
+     "id": "h5_dry_supplies",
+     "title": "Diego's school-supply receipts (no federal deduction for parents)",
+     "facility": "cabinet"
+    },
+    {
+     "id": "h5_dry_medicaid",
+     "title": "Nevada Medicaid renewal letter (no tax effect)",
+     "facility": "inbox"
+    }
+   ]
+  }
+ ]
+}

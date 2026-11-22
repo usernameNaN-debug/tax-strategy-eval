@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>stage</title>
+<style>body{margin:16px;background:#fff;font:13px system-ui} canvas{image-rendering:pixelated;width:960px;display:block} #info{margin-top:8px;color:#555}</style>
+</head><body>
+<canvas id="c"></canvas><div id="info"></div>
+<script type="module">
+import { Stage } from '../app/pixel/stage.js';
+import { api } from '../src/service.js';
+import { resample } from '../src/world/macro.js';
+const q = new URLSearchParams(location.search);
+const macro = api.macro();
+const stage = new Stage(document.getElementById('c'), { marketX: resample(macro.index, 480), macro });
+const hh = q.get('h') || 'morenos_oh', pr = q.get('p') || 'kestrel';
+stage.setHousehold(api.world(hh));
+const { rollout, grade } = api.rollout({ household: hh, profile: pr, seed: +(q.get('s') || 0) });
+stage.load(rollout, grade);
+window.stage = stage; window.rollout = rollout; window.grade = grade;
+const info = document.getElementById('info');
+stage.on('event', (i) => { const e = rollout.trace[i]; info.textContent = i + ' ' + (e ? e.kind + ' ' + (e.doc || e.facility || e.opp || e.decoy || '') : '') + ' view=' + stage.view; });
+if (q.has('t')) { stage.seek(+q.get('t')); } else stage.play();
+if (q.has('pm')) { stage.setMode('postmortem'); if (q.get('pm')) stage.openRoom(q.get('pm')); if (q.has('x')) stage.setXray(true); }
+</script></body></html>

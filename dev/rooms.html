@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>rooms</title>
+<style>body{margin:16px;background:#fff;font:13px system-ui} canvas{image-rendering:pixelated;width:960px;display:block;margin:0 0 12px}</style>
+</head><body>
+<div id="out"></div>
+<script type="module">
+import { Raster } from '../app/pixel/gfx.js';
+import { drawBig } from '../app/pixel/big.js';
+import { LOOKS } from '../app/pixel/person.js';
+import { SCENES, buildScene, buildFront, RW, RH, RFEET } from '../app/pixel/rooms.js';
+import { indexPath, resample } from '../src/world/macro.js';
+const marketX = resample(indexPath(7), 120);
+const only = new URLSearchParams(location.search).get('room');
+const poses = { library: ['reach', 30], office: ['type', 76], lobby: ['stand', 60], portals: ['read', 12], news: ['point', 60], archive: ['crank', 150], home: ['phone', 86] };
+for (const name of Object.keys(SCENES)) {
+  if (only && only !== name) continue;
+  const r = buildScene(name, marketX, Raster);
+  const [pose, x] = poses[name];
+  if (name === 'lobby') drawBig(r, LOOKS.secretary, 68, RFEET - 46, 1, 'type', 0, {});
+  const f = buildFront(name, Raster);
+  if (f) for (let i = 0; i < f.u32.length; i++) if (f.u32[i] >>> 24) r.u32[i] = f.u32[i];
+  drawBig(r, LOOKS.agent, name === 'lobby' ? 116 : x, RFEET - 40, 1, pose, 0, { stack: 5 });
+  const c = document.createElement('canvas'); c.width = RW; c.height = RH; c.id = name;
+  c.getContext('2d').putImageData(r.img, 0, 0);
+  document.getElementById('out').append(c);
+}
+</script></body></html>

@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building in 3D</title>
+<meta name="description" content="A 3D sketch of the building the agent works in: four floors, a stairwell, and one agent making the rounds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;1,400&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='2' width='10' height='12' fill='%23f3eee4' stroke='%232b2521'/%3E%3Crect x='5' y='5' width='6' height='1' fill='%230F4D92'/%3E%3Crect x='5' y='8' width='4' height='1' fill='%232E6E4E'/%3E%3C/svg%3E">
+<style>
+  .box3d { position: relative; border-radius: var(--radius); background: var(--panel); overflow: hidden; aspect-ratio: 16 / 9; cursor: grab; touch-action: pan-y; }
+  .box3d:active { cursor: grabbing; }
+  .box3d canvas { display: block; width: 100%; height: 100%; }
+  .box3d canvas.px { image-rendering: pixelated; }
+  .bar3d { display: flex; gap: 8px; align-items: center; margin-top: 14px; }
+  .bar3d .caption { margin: 0 0 0 8px; }
+</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="./">tax-strategy-eval</a>
+  <nav><a href="./#rollout">Rollout</a><a href="./#leaderboard">Leaderboard</a></nav>
+</header>
+<div class="layout">
+  <main>
+    <h1>The building, in 3D</h1>
+    <p class="lede">The same four floors as the main page, built from boxes: basement archive, office and lobby, the library, and portals with the news room on top. One agent makes a round. Drag to turn it.</p>
+    <figure class="wide">
+      <div class="box3d" id="box"><canvas id="c" class="px" aria-label="A 3D cutaway of the office building"></canvas></div>
+      <div class="bar3d">
+        <button class="pill small" id="px" aria-pressed="true">Pixel</button>
+        <button class="pill small" id="spin" aria-pressed="true">Turn</button>
+        <span class="caption" id="cap"></span>
+      </div>
+    </figure>
+    <p class="note">A sketch, not the replay: the main page's pixel view is driven by real traces, and this one walks a fixed loop. Rendering at a third of the resolution and scaling up with nearest-neighbour sampling is what makes it read as pixel art.</p>
+    <p class="note"><a href="./">Back to the rollout</a></p>
+  </main>
+</div>
+<footer><span>v0.1.0</span><span>Simulated households, market and agents. Not tax advice.</span></footer>
+
+<script type="module">
+import * as THREE from 'three';
+
+const canvas = document.getElementById('c');
+const box = document.getElementById('box');
+const cap = document.getElementById('cap');
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.BasicShadowMap;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 200);
+cam.position.set(12, 10, 30);
+cam.lookAt(0, 3.6, 0);
+
+scene.add(new THREE.HemisphereLight(0xfff6e8, 0x8a7a66, 1.25));
+const sun = new THREE.DirectionalLight(0xffefd6, 1.6);
+sun.position.set(10, 20, 14);
+sun.castShadow = true;
+sun.shadow.mapSize.set(1024, 1024);
+Object.assign(sun.shadow.camera, { left: -16, right: 16, top: 16, bottom: -16, near: 1, far: 60 });
+scene.add(sun);
+const fill = new THREE.DirectionalLight(0xfff3e0, 1.1);
+fill.position.set(2, 4, 20);
+scene.add(fill);
+
+// Palette shared with the pixel view.
+const P = {
+  plaster: 0xf3eee4, wall2: 0xe9dfcc, wood: 0x9a6a3f, woodD: 0x6b4526, woodL: 0xc89a62, floor: 0xb98b5a,
+  concrete: 0xb9b3a8, slab: 0x857a6c, roof: 0x7a4a3a, blue: 0x0f4d92, rose: 0xb64342, ochre: 0xc9962e,
+  green: 0x2e6e4e, ink: 0x2b2521, skin: 0xe8b796, steel: 0x9ea6ad, cork: 0xb88b55, screen: 0x9fd0ff, grass: 0x8fae6a,
+};
+const mats = {};
+const mat = (c, o = {}) => (mats[c + JSON.stringify(o)] ??= new THREE.MeshLambertMaterial({ color: c, ...o }));
+const world = new THREE.Group();
+scene.add(world);
+function cube(w, h, d, c, x, y, z, parent = world, o) {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat(c, o));
+  m.position.set(x, y, z);
+  m.castShadow = m.receiveShadow = true;
+  parent.add(m);
+  return m;
+}
+
+// ---- shell: four floors, open at the front, stairwell on the right
+const FL = [-3, 0, 3, 6];
+const W = 16, D = 6, H = 3;
+cube(W + 0.4, 0.3, D + 0.4, P.slab, 0, FL[0] - 0.15, 0);
+for (let k = 0; k < 4; k++) {
+  const y = FL[k];
+  const wallC = k === 0 ? P.concrete : P.plaster;
+  cube(W, H, 0.2, wallC, 0, y + H / 2, -D / 2);
+  cube(0.2, H, D, wallC, -W / 2, y + H / 2, 0);
+  cube(0.2, H, D, wallC, W / 2, y + H / 2, 0);
+  // floor finish (leaves the stairwell's back half open)
+  cube(13, 0.08, D, k === 0 ? P.concrete : P.floor, -1.5, y + 0.04, 0);
+  cube(3, 0.08, 3, k === 0 ? P.concrete : P.floor, 6.5, y + 0.04, 1.5);
+  // slab above
+  cube(13, 0.3, D, P.slab, -1.5, y + H + 0.15, 0);
+  cube(3, 0.3, 3, P.slab, 6.5, y + H + 0.15, 1.5);
+  // flight k: zig-zag, +x on even floors
+  if (k < 3) {
+    const dir = k % 2 ? -1 : 1;
+    for (let s = 0; s < 10; s++) cube(0.26, 0.3 * (s + 1), 2.6, P.woodD, 6.5 + dir * (-1.17 + s * 0.26), y + 0.15 * (s + 1), -1.6);
+  }
+}
+// roof
+const roofG = new THREE.CylinderGeometry(0.01, 6.2, 3, 4, 1);
+roofG.rotateY(Math.PI / 4);
+roofG.scale(1.86, 1, 0.78);
+const roof = new THREE.Mesh(roofG, mat(P.roof));
+roof.position.set(0, FL[3] + H + 1.8, 0);
+roof.castShadow = true;
+world.add(roof);
+cube(1, 1.6, 1, P.wood, -5, FL[3] + H + 2.2, -1); // water tower
+cube(1.4, 0.2, 1.4, P.woodD, -5, FL[3] + H + 3.1, -1);
+// ground: a cut-section base, flush with the open front, so the basement shows
+const SOIL = 0x7a5c40;
+for (const [w, d, x, z] of [[5, 12, -10.7, -2.8], [5, 12, 10.7, -2.8], [16.4, 5.6, 0, -6]]) {
+  cube(w, 3.3, d, SOIL, x, FL[0] - 0.3 + 1.65, z);
+  cube(w, 0.12, d, P.grass, x, FL[1] + 0.02, z);
+}
+cube(26.4, 0.3, 12, SOIL, 0, FL[0] - 0.45, -2.8);
+for (const [x, z] of [[-10.5, 1.5], [11.2, 0.8], [-11.6, -5.5], [10, -6.5]]) {   // trees
+  cube(0.3, 1.4, 0.3, P.woodD, x, FL[1] + 0.7, z);
+  cube(1.6, 1.6, 1.6, 0x5f8a4a, x, FL[1] + 2.0, z);
+  cube(1.0, 0.9, 1.0, 0x6f9a56, x, FL[1] + 3.1, z);
+}
+
+// ---- basement: archive boxes, safe, the dry well
+for (let i = 0; i < 3; i++) {
+  cube(3.2, 0.1, 1, P.steel, -5.5, FL[0] + 0.6 + i * 0.9, -2.4);
+  for (let j = 0; j < 4; j++) cube(0.62, 0.5, 0.7, j % 2 ? 0xd8c7a3 : 0xc9b48a, -6.8 + j * 0.8, FL[0] + 0.91 + i * 0.9, -2.4);
+}
+cube(1.1, 1.2, 1, 0x4a4f55, -1, FL[0] + 0.6, -2.3);
+cube(0.25, 0.25, 0.05, P.ochre, -1, FL[0] + 0.7, -1.78);
+const well = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 0.7, 12, 1, true), mat(0x7d7366, { side: THREE.DoubleSide }));
+well.position.set(2.5, FL[0] + 0.35, -1);
+world.add(well);
+cube(0.1, 1.8, 0.1, P.woodD, 1.7, FL[0] + 0.9, -1); cube(0.1, 1.8, 0.1, P.woodD, 3.3, FL[0] + 0.9, -1); cube(1.8, 0.1, 0.1, P.woodD, 2.5, FL[0] + 1.8, -1);
+
+// ---- ground: lobby (left) and the office
+cube(0.15, H, D, P.wall2, -3.2, FL[1] + H / 2, -0.6).scale.z = 0.8; // partition
+cube(2.6, 0.9, 0.9, P.woodL, -5.6, FL[1] + 0.45, 0.2);                // reception desk
+cube(0.7, 0.3, 0.5, P.ink, -6.2, FL[1] + 1.05, 0.2);                  // typewriter
+cube(0.6, 1.1, 0.6, 0xbfdbe8, -7.3, FL[1] + 0.55, -2.2);              // cooler
+const desk = cube(3, 0.12, 1.3, P.wood, 0, FL[1] + 0.9, -1.6);
+cube(0.12, 0.84, 1.2, P.woodD, -1.4, FL[1] + 0.42, -1.6); cube(0.9, 0.84, 1.2, P.woodD, 1.0, FL[1] + 0.42, -1.6);
+cube(1, 0.7, 0.1, P.ink, 0.1, FL[1] + 1.35, -2.1);
+const screenM = cube(0.86, 0.56, 0.02, P.screen, 0.1, FL[1] + 1.36, -2.04, world, { emissive: 0x1f4f7a });
+const cork = cube(2.6, 1.4, 0.06, P.cork, -1.1, FL[1] + 1.9, -2.86);
+cube(0.9, 2, 0.8, P.steel, 3.2, FL[1] + 1, -2.4);                      // filing cabinet
+for (let i = 0; i < 3; i++) cube(0.5, 0.06, 0.02, P.ink, 3.2, FL[1] + 0.45 + i * 0.6, -1.99);
+cube(1, 1.3, 0.7, P.woodL, 4.6, FL[1] + 0.65, -2.4);                   // the tax engine
+cube(0.6, 0.35, 0.02, 0x2b3a2e, 4.6, FL[1] + 1.0, -2.04, world, { emissive: 0x1a4a2a });
+
+// ---- library: IRS shelves and case law
+const SPINES = [P.blue, P.rose, P.green, P.ochre, 0x6a4c93, 0x2f5f7a, 0x8a3b2e, 0x3f6a4a];
+let seed = 7;
+const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+for (const [x0, n] of [[-7.4, 6], [1.6, 3]]) {
+  for (let b = 0; b < n; b++) {
+    const bx = x0 + b * 1.05;
+    cube(1, 2.6, 0.7, P.woodD, bx + 0.5, FL[2] + 1.3, -2.55);
+    for (let s = 0; s < 4; s++) {
+      let x = bx + 0.08;
+      while (x < bx + 0.92) {
+        const w = 0.07 + rnd() * 0.06, h = 0.36 + rnd() * 0.14;
+        cube(w, h, 0.5, SPINES[(rnd() * SPINES.length) | 0], x + w / 2, FL[2] + 0.25 + s * 0.6 + h / 2, -2.3);
+        x += w + 0.01;
+      }
+    }
+  }
+}
+cube(2.4, 0.1, 1.2, P.wood, -1.5, FL[2] + 0.8, 0.3);
+cube(0.1, 0.75, 0.1, P.woodD, -2.5, FL[2] + 0.38, -0.1); cube(0.1, 0.75, 0.1, P.woodD, -0.5, FL[2] + 0.38, 0.7);
+cube(0.8, 1.2, 0.6, P.woodL, 4.6, FL[2] + 0.6, -2.4);                   // card catalog
+const lamp = new THREE.PointLight(0xffd79a, 0, 4);
+lamp.position.set(-1.5, FL[2] + 2, 0.3);
+world.add(lamp);
+
+// ---- top floor: portal booths and the news room
+const booths = [];
+for (let i = 0; i < 4; i++) {
+  const x = -7 + i * 2;
+  cube(0.1, 2, 1.6, P.wall2, x - 0.9, FL[3] + 1, -2.1);
+  cube(1.2, 0.08, 0.8, P.woodL, x, FL[3] + 0.85, -2.3);
+  booths.push(cube(0.8, 0.55, 0.05, P.screen, x, FL[3] + 1.3, -2.6, world, { emissive: 0x153a5c }));
+}
+cube(2.4, 1.4, 0.2, P.ink, 4.6, FL[3] + 1.5, -2.8);
+const tv = cube(2.2, 1.2, 0.02, 0x7fb07f, 4.6, FL[3] + 1.5, -2.68, world, { emissive: 0x204020 });
+cube(1.2, 0.6, 0.9, P.rose, 4.6, FL[3] + 0.3, -0.6);
+
+// ---- the agent: a little voxel person
+function person(jacket, hair) {
+  const g = new THREE.Group();
+  const legs = [-0.1, 0.1].map((x) => { const l = cube(0.14, 0.5, 0.16, P.ink, x, 0.25, 0, g); l.geometry.translate(0, -0.25, 0); l.position.y = 0.5; return l; });
+  cube(0.44, 0.56, 0.26, jacket, 0, 0.78, 0, g);
+  cube(0.1, 0.1, 0.02, 0xffffff, 0, 0.98, 0.14, g);
+  cube(0.3, 0.3, 0.3, P.skin, 0, 1.22, 0, g);
+  cube(0.32, 0.12, 0.32, hair, 0, 1.39, -0.01, g);
+  cube(0.06, 0.05, 0.02, P.ink, -0.07, 1.25, 0.15, g); cube(0.06, 0.05, 0.02, P.ink, 0.07, 1.25, 0.15, g);
+  g.userData.legs = legs;
+  world.add(g);
+  return g;
+}
+const agent = person(P.blue, P.ink);
+const cat = cube(0.4, 0.22, 0.2, 0x3a3330, 1.2, FL[1] + 0.11, 1.5);
+
+// Stations on the round, and what happens there.
+const STOPS = [
+  { f: 1, x: -0.2, z: -0.8, wait: 2.2, say: 'Reads the folder at the desk.', on: () => (screenM.material.emissive.setHex(0x3a7ab5)) },
+  { f: 1, x: 3.2, z: -1.4, wait: 1.6, say: 'Pulls last year’s return from the cabinet.' },
+  { f: 2, x: -5.2, z: -1.6, wait: 2.4, say: 'Publication 503, upstairs.', on: () => (lamp.intensity = 2.5) },
+  { f: 2, x: 4.6, z: -1.6, wait: 1.4, say: 'The card catalog.' },
+  { f: 3, x: -5, z: -1.4, wait: 2, say: 'Logs into the employer portal.', on: () => booths[1].material.emissive.setHex(0x4a8ad0) },
+  { f: 0, x: -5.6, z: -1.4, wait: 2.4, say: 'The 2022 box in the basement.' },
+  { f: 0, x: 2.5, z: 0.4, wait: 1.2, say: 'The well. Nothing down there.' },
+  { f: 1, x: -1.1, z: -2.2, wait: 2, say: 'Pins what it found.', on: pin },
+  { f: 1, x: 4.6, z: -1.6, wait: 1.6, say: 'Runs the numbers.' },
+];
+const pins = [];
+function pin() {
+  if (pins.length >= 15) pins.splice(0).forEach((m) => world.remove(m));
+  const n = pins.length;
+  pins.push(cube(0.16, 0.16, 0.05, [P.blue, P.rose, P.green][n % 3], -2 + (n % 5) * 0.42, FL[1] + 2.3 - Math.floor(n / 5) * 0.4, -2.8));
+}
+
+// Waypoints: walk to the stairwell, take each flight, walk out.
+const START = [5.4, 7.6];
+function flight(k, up) {
+  const a = k % 2 ? START[1] : START[0], b = k % 2 ? START[0] : START[1];
+  const pts = [[a, FL[k], 0.7], [a, FL[k], -1.6], [b, FL[k + 1], -1.6], [b, FL[k + 1], 0.7]];
+  return up ? pts : pts.reverse();
+}
+function route(from, to) {
+  const pts = [];
+  let f = from.f;
+  while (f !== to.f) {
+    const up = to.f > f, k = up ? f : f - 1;
+    const fl = flight(k, up);
+    pts.push(...fl);
+    f += up ? 1 : -1;
+  }
+  pts.push([to.x, FL[to.f], to.z]);
+  return pts.map((p) => new THREE.Vector3(...p));
+}
+const legs = [];
+for (let i = 0; i < STOPS.length; i++) {
+  const a = STOPS[i], b = STOPS[(i + 1) % STOPS.length];
+  legs.push({ stop: a, pts: [new THREE.Vector3(a.x, FL[a.f], a.z), ...route(a, b)] });
+}
+agent.position.set(STOPS[0].x, FL[1], STOPS[0].z);
+
+// ---- loop
+const SPEED = 2.4;
+let leg = 0, phase = 'wait', clock = 0, seg = 0, segT = 0, angle = 0.35, spin = !reduced;
+function arrive() {
+  const s = legs[leg].stop;
+  cap.textContent = s.say;
+  s.on?.();
+}
+arrive();
+function step(dt) {
+  clock += dt;
+  const L = legs[leg];
+  if (phase === 'wait') {
+    agent.userData.legs.forEach((l) => (l.rotation.x = 0));
+    agent.position.y = FL[L.stop.f] + Math.abs(Math.sin(clock * 3)) * 0.02;
+    if (clock > L.stop.wait) { phase = 'walk'; seg = 0; segT = 0; clock = 0; lamp.intensity = 0; }
+    return;
+  }
+  let a = L.pts[seg], b = L.pts[seg + 1];
+  const len = a.distanceTo(b) || 1e-6;
+  segT += (dt * SPEED) / len;
+  while (segT >= 1) {
+    segT -= 1; seg++;
+    if (seg >= L.pts.length - 1) { leg = (leg + 1) % legs.length; phase = 'wait'; clock = 0; arrive(); return; }
+    a = L.pts[seg]; b = L.pts[seg + 1];
+  }
+  agent.position.lerpVectors(a, b, segT);
+  const dx = b.x - a.x, dz = b.z - a.z;
+  if (Math.abs(dx) + Math.abs(dz) > 1e-3) agent.rotation.y = Math.atan2(dx, dz);
+  const sw = Math.sin(clock * 12) * 0.6;
+  agent.userData.legs[0].rotation.x = sw; agent.userData.legs[1].rotation.x = -sw;
+}
+
+let drag = null;
+box.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, a: angle }; box.setPointerCapture(e.pointerId); });
+box.addEventListener('pointermove', (e) => { if (drag) angle = Math.max(-0.9, Math.min(0.9, drag.a + (e.clientX - drag.x) / 260)); });
+box.addEventListener('pointerup', () => (drag = null));
+
+let pixel = true;
+function resize() {
+  const w = box.clientWidth, h = box.clientHeight, s = pixel ? 3 : 1;
+  renderer.setPixelRatio(pixel ? 1 : devicePixelRatio);
+  renderer.setSize(Math.max(1, Math.round(w / s)), Math.max(1, Math.round(h / s)), false);
+  const aspect = w / h, half = 8.2;
+  Object.assign(cam, { left: -half * aspect, right: half * aspect, top: half, bottom: -half });
+  cam.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(box);
+document.getElementById('px').onclick = (e) => { pixel = !pixel; e.currentTarget.setAttribute('aria-pressed', pixel); canvas.classList.toggle('px', pixel); resize(); };
+document.getElementById('spin').onclick = (e) => { spin = !spin; e.currentTarget.setAttribute('aria-pressed', spin); };
+
+let prev = performance.now(), visible = true;
+new IntersectionObserver(([en]) => (visible = en.isIntersecting)).observe(box);
+renderer.setAnimationLoop((now) => {
+  const dt = Math.min(0.05, (now - prev) / 1000);
+  prev = now;
+  if (!visible) return;
+  step(dt);
+  if (spin && !drag) angle = 0.35 + Math.sin(now / 6000) * 0.35;
+  world.rotation.y = angle - 0.35;
+  tv.material.emissive.setHSL(0.33, 0.35, 0.12 + 0.04 * Math.sin(now / 300));
+  cat.scale.y = 1 + 0.06 * Math.sin(now / 700);
+  renderer.render(scene, cam);
+});
+</script>
+</body>
+</html>

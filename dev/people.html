@@ -1,0 +1,19 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>people</title>
+<style>body{margin:24px;background:#fff} canvas{image-rendering:pixelated;width:1300px}</style>
+</head><body>
+<canvas id="c" width="260" height="140"></canvas>
+<script type="module">
+import { Raster } from '../app/pixel/gfx.js';
+import { drawPerson, LOOKS, look } from '../app/pixel/person.js';
+const r = new Raster(260, 140);
+const poses = ['stand','walk','walk','walk','walk','read','phone','reach','crank','carry','shrug','slump'];
+const looks = [LOOKS.agent, LOOKS.secretary, LOOKS.coworker, LOOKS.partner, look({head:'long',hair:'black',skin:'deep',top:'scrubs',bottom:'scrubs',shoes:'white'})];
+looks.forEach((L, row) => {
+  poses.forEach((p, i) => drawPerson(r, L, 4 + i * 20, 2 + row * 27, 1, p, i - 1, { stack: 7 }));
+});
+// second row: each look standing, facing left and right
+looks.forEach((L, i) => { drawPerson(r, L, 4 + i * 40, 40, 1, 'stand'); drawPerson(r, L, 22 + i * 40, 40, -1, 'walk', 1); });
+const c = document.getElementById('c').getContext('2d');
+c.putImageData(r.img, 0, 0);
+</script></body></html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>scene</title>
+<style>body{margin:16px;background:#fff} canvas{image-rendering:pixelated;display:block;width:1440px;height:810px;margin-bottom:12px}</style>
+</head><body>
+<canvas id="a" width="480" height="270"></canvas>
+<canvas id="b" width="480" height="270"></canvas>
+<script type="module">
+import { buildWorld, postProcess } from '../app/pixel/render.js';
+import { Raster } from '../app/pixel/gfx.js';
+import { W, H, FEET } from '../app/pixel/layout.js';
+import { drawFront } from '../app/pixel/scene.js';
+import { drawPerson, LOOKS, look } from '../app/pixel/person.js';
+import { macroYear, resample } from '../src/world/macro.js';
+const m = macroYear();
+const world = buildWorld(resample(m.index, W));
+const client = look({ head: 'long', hair: 'black', skin: 'deep', top: 'scrubs', bottom: 'scrubs', shoes: 'white' });
+function show(id, ink) {
+  const f = new Raster(W, H); f.copyFrom(world.base);
+  drawPerson(f, LOOKS.secretary, 70, FEET.g - 23, 1, 'type');
+  drawPerson(f, LOOKS.coworker, 116, FEET.g - 23, -1, 'stand');
+  drawPerson(f, LOOKS.agent, 189, FEET.g - 23, 1, 'read');
+  drawPerson(f, LOOKS.agent, 80, FEET.f1 - 23, 1, 'reach');
+  drawPerson(f, client, 404, FEET.g - 23, 1, 'stand');
+  drawFront(f);
+  const lvl = new Float32Array(9).fill(ink); lvl[0] = 1; lvl[7] = 1; lvl[1] = 1; lvl[2] = 1;
+  postProcess(f, world.rooms, lvl, new Float32Array(9), [255,255,255]);
+  document.getElementById(id).getContext('2d').putImageData(f.img, 0, 0);
+}
+show('a', 1); show('b', 0);
+</script></body></html>
