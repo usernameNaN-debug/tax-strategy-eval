@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Design notes (`design.html`): the human-centered direction the office and leaderboard will move to. Six principles with working demos, a rollout drawn as a day outside a window (sun for budget, weather for what happened, a plant that grows a flower per find), the palette and type, and patterns for showing numbers. Every widget reads the real benchmark.
+
 ## 0.2.0 — 2026-11-23
 
 A new office, and the site split into three pages.

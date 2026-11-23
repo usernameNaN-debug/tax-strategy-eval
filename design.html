@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design notes · Tax Strategy Eval</title>
+<meta name="description" content="How the benchmark should look and feel: paper, paint, daylight, and numbers that start with the family they belong to.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..700;1,400&family=Literata:ital,opsz,wght@0,7..72,300..650;1,7..72,300..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/design.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21V11' stroke='%235c7d55' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M12 13C12 8 8 6 4 6c0 4 3 7 8 7zM12 11c0-4 3-7 8-7 0 4-3 7-8 7z' fill='%238fae86' stroke='%235c7d55' stroke-width='1.2'/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11" stroke="#5c7d55" stroke-width="1.8" stroke-linecap="round"/><path d="M12 13C12 8 8 6 4 6c0 4 3 7 8 7zM12 11c0-4 3-7 8-7 0 4-3 7-8 7z" fill="#8fae86" stroke="#5c7d55" stroke-width="1.2"/></svg>
+      <span>tax-strategy-eval</span>
+    </a>
+    <nav>
+      <a href="index.html">Leaderboard</a>
+      <a href="office.html">Office</a>
+      <a href="methodology.html">Methodology</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Design notes</div>
+      <h1>Taxes get done at <span class="paint">kitchen tables.</span></h1>
+      <p class="lede">Usually in March, by someone tired, next to a pile of paper. The five households in this benchmark are made up. Their problems aren’t: a nurse’s overtime, a widow’s hospital bills, a hairdresser who never filed for 2022. What we build should feel like that table on a good day. Daylight, paper, a plant on the sill, and someone patient helping.</p>
+      <div class="acts">
+        <a class="btn leaf" href="#day"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.8v8.4L10 6z" fill="currentColor"/></svg>See a rollout as a day</a>
+        <a class="btn soft" href="#principles">The six principles</a>
+      </div>
+    </div>
+    <div>
+      <div class="window" id="heroWin">
+        <div class="glass"><canvas id="heroSky" aria-hidden="true"></canvas><div class="fog"></div><div class="shine"></div></div>
+        <div class="mull mv"></div><div class="mull mh"></div>
+        <div class="sill"></div>
+        <div class="potted" id="heroPlant" style="left:8%"></div>
+        <button class="hold" id="heroHold" aria-label="Pause"></button>
+      </div>
+      <div class="under"><span class="tiny" id="heroSay">&nbsp;</span><button class="chip" id="another">Another day</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="principles">
+  <div class="washes" data-w="principles"></div>
+  <div class="wrap">
+    <header class="part-h">
+      <span class="n">1</span>
+      <h2>What we mean by human-centered</h2>
+      <p>The benchmark asks how much money an agent finds for a family. So the family is the subject, and the agent is the help. Six rules follow from that. Each one comes with a small working example.</p>
+    </header>
+    <div class="principles">
+      <article class="tile pr rise">
+        <div class="demo d-people" id="dPeople"></div>
+        <h3>People before percentages</h3>
+        <p>We open on the household. A result is money that stays with a family, so the first number you see is dollars and a name. The score comes second, in smaller type. Agents are named in the margin, not the headline.</p>
+        <div class="no"><b>So we don’t</b> put a model’s name in 120-point type, or rank families by how hard they were.</div>
+      </article>
+      <article class="tile pr rise">
+        <div class="demo d-day" id="dDay"></div>
+        <h3>Daylight, not deadlines</h3>
+        <p>Taxes already come with a deadline. We don’t add another. Time here is daylight: a rollout starts at dawn and the sun moves as the agent spends its budget. An agent that runs over keeps working after dark, which is what overtime looks like. Drag the sun.</p>
+        <div class="no"><b>So we don’t</b> show clocks, countdowns, red alerts or black screens.</div>
+      </article>
+      <article class="tile pr rise">
+        <div class="demo d-hand" id="dHand"></div>
+        <h3>Made by hand, measured exactly</h3>
+        <p>Paper has tooth, paint has edges, glass is frosted. These surfaces say a person made this for a person to read. The texture stays on the edges. A bar painted with a dry brush ends exactly where its number says.</p>
+        <div class="no"><b>So we don’t</b> let a brush stroke change a length, or a texture hide a label.</div>
+      </article>
+      <article class="tile pr rise">
+        <div class="demo d-wx" id="dWx"></div>
+        <h3>Weather says what happened</h3>
+        <p>You should feel how a rollout went before you read a number. Clear sky while the agent finds things. A cloud when it reads something with nothing in it. Rain when it falls for a bad pitch. Each find opens a flower.</p>
+        <div class="no"><b>So we don’t</b> use weather as decoration. If the sky changes, something happened.</div>
+      </article>
+      <article class="tile pr rise">
+        <div class="demo">
+          <div style="text-align:center">
+            <div style="font:500 46px/1.1 var(--sans);letter-spacing:.02em">Il1 O0</div>
+            <div style="font:500 46px/1.1 Helvetica, Arial, sans-serif;letter-spacing:.02em;color:var(--ink-3);opacity:.55">Il1 O0</div>
+            <div class="tiny" style="margin-top:12px">Atkinson, above. A common sans, below.</div>
+          </div>
+        </div>
+        <h3>Readable first</h3>
+        <p>Body text at 18px. Headings top out around 46px. Lines run about 65 characters. Interface type is Atkinson Hyperlegible, drawn for the Braille Institute so that readers with low vision can tell I from l from 1. When a sentence can replace a chart, we write the sentence.</p>
+        <div class="no"><b>So we don’t</b> make a word huge because it looks expensive.</div>
+      </article>
+      <article class="tile pr rise">
+        <div class="demo d-more" id="dMore"></div>
+        <h3>One thing at a time</h3>
+        <p>Show the headline, then let people open the rest: the math behind a number, the source behind the math, the phone call behind the source. Drawers and tabs, so the page is never a wall.</p>
+        <div class="no"><b>So we don’t</b> put every number on screen at once.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="day">
+  <div class="washes" data-w="day"></div>
+  <div class="wrap">
+    <header class="part-h">
+      <span class="n">2</span>
+      <h2>A rollout is a day</h2>
+      <p>This is how we want the office to show an agent at work. The day starts when the folder lands. The sun crosses as tokens get spent. Each run gets its own weather, the way days do, and the agent’s work moves through it. By dusk the plant on the sill is the strategy.</p>
+    </header>
+    <div class="day-ctl">
+      <div class="grp"><label for="dayHH">Household</label><select class="select" id="dayHH"></select></div>
+      <div class="grp"><label for="dayAgent">Agent</label><select class="select" id="dayAgent"></select></div>
+      <div class="grp"><label>Weather</label><div class="chips" id="dayWx"></div></div>
+      <button class="btn leaf" id="dayPlay"><svg viewBox="0 0 12 12"><path d="M3 1.8v8.4L10 6z" fill="currentColor"/></svg>Play</button>
+    </div>
+    <div class="day-grid">
+      <div>
+        <div class="window wide" id="dayWin">
+          <div class="glass"><canvas id="daySky" aria-hidden="true"></canvas><div class="fog" style="--frost:.4"></div><div class="shine"></div></div>
+          <div class="mull mv b"></div><div class="mull mv c"></div>
+          <div class="sill"></div>
+          <div class="potted" id="dayPlant" style="right:6%;width:24%"></div>
+          <button class="hold" id="dayHold" aria-label="Pause" style="left:22px;right:auto"></button>
+        </div>
+        <div class="caption" aria-live="polite">
+          <div class="where" id="dayWhere"></div>
+          <p id="dayLine"></p>
+          <q id="dayQuote" hidden></q>
+        </div>
+        <div class="strip"><svg id="dayStrip" aria-label="The agent's day, one mark per call. Click to jump."></svg></div>
+        <p class="tiny" id="dayRead" style="margin-top:4px"></p>
+      </div>
+      <aside class="tile key rise">
+        <h3>How to read it</h3>
+        <dl id="dayKey"></dl>
+        <div class="sw4" id="daySw"></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="materials">
+  <div class="washes" data-w="materials"></div>
+  <div class="wrap">
+    <header class="part-h">
+      <span class="n">3</span>
+      <h2>Paper, paint and type</h2>
+      <p>Colors are named after things in a garden, and each one has a job. The page is oat paper, never white. Text is warm ink, never black. Evening is indigo.</p>
+    </header>
+    <div class="mat-grid">
+      <div class="tile mat rise"><h3>Colors and what they mean</h3><div class="swatches" id="swatches"></div></div>
+      <div class="tile mat rise">
+        <h3>Three typefaces</h3>
+        <div class="types">
+          <div class="type-row"><span class="s">The Morenos keep $12,722</span><span class="m">Literata<br>reading, headings</span><p>A serif made for long reading on screens. Warm, a little bookish, comfortable at 18px.</p></div>
+          <div class="type-row"><span class="s sans">Start the rollout</span><span class="m">Atkinson Hyperlegible Next<br>interface, labels</span><p>Every letter shaped to be told apart from its neighbors. Used for anything you click or scan.</p></div>
+          <div class="type-row"><span class="s mono">$2,345.20 · 150k</span><span class="m">Atkinson Hyperlegible Mono<br>figures, tables</span><p>Figures line up in columns, and 0 never looks like O.</p></div>
+        </div>
+      </div>
+      <div class="tile mat textures rise">
+        <h3>Four textures, used sparingly</h3>
+        <div class="tex-row">
+          <div><div class="tex paper"></div><div class="tiny">Paper tooth, over the whole page, text included.</div></div>
+          <div><div class="tex frost"></div><div class="tiny">Frosted glass, for panels that float over paint.</div></div>
+          <div><div class="tex" id="texBrush"></div><div class="tiny">Dry brush, for bars and highlights. Edges only.</div></div>
+          <div><div class="tex" id="texPencil"></div><div class="tiny">Pencil, for frames, circles and the odd correction.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="numbers">
+  <div class="washes" data-w="numbers"></div>
+  <div class="wrap">
+    <header class="part-h">
+      <span class="n">4</span>
+      <h2>Showing numbers</h2>
+      <p>Numbers are where a page goes cold. These are the patterns we use to keep them warm without bending them. They share one selection: pick a household or an agent anywhere and the rest follow.</p>
+    </header>
+    <div class="num-grid">
+      <div class="tile w headline span-7 rise">
+        <h3>Lead with the household</h3>
+        <p class="why">Dollars and a name first. The share and the agent come after, smaller. Found, part found, missed and wrong all sit on one scale.</p>
+        <div class="tabs" id="hlTabs" role="tablist" style="margin-left:-12px"></div>
+        <div class="fig"><span class="big"><span class="roll" id="hlBig"></span></span><span class="to" id="hlTo"></span></div>
+        <p class="sub" id="hlSub"></p>
+        <div class="bar4"><svg id="hlBar"></svg></div>
+        <div class="legend" id="hlLegend"></div>
+        <div class="when" id="hlWhen"></div>
+      </div>
+      <div class="tile w span-5 rise">
+        <h3>The strategy, item by item</h3>
+        <p class="why" id="stTitle"></p>
+        <ul class="items" id="stItems"></ul>
+      </div>
+      <div class="tile w span-12 rise">
+        <h3>Compare in a table, light up one column</h3>
+        <p class="why">Seven agents on five households. Click a name to follow that agent through the rest of the page. A green dot marks the best in each row.</p>
+        <div class="tabs" id="cmpMetric" role="tablist" style="margin:-8px 0 8px -12px"></div>
+        <div class="cmp-wrap" id="cmpWrap"><table class="cmp" id="cmp"></table></div>
+      </div>
+      <div class="tile w quotes span-7 rise">
+        <h3>Quote the people</h3>
+        <p class="why">What a family says on the phone is often the fact that matters most. We print it the way they said it, and say where it came from.</p>
+        <div class="tabs" id="qTabs" role="tablist"></div>
+        <div class="qstage"><div class="qtrack" id="qTrack"></div></div>
+      </div>
+      <div class="tile w scatter span-5 rise">
+        <h3>Cost as daylight</h3>
+        <p class="why">Tokens are drawn as how much of the day an agent used. Past the dashed line it is working after sunset, on paid time.</p>
+        <div id="scatter"></div>
+      </div>
+      <div class="tile w garden span-12 rise">
+        <h3>A garden for each agent</h3>
+        <p class="why">Five pots, one per household. Count the flowers to see what it found and the closed buds to see what it missed. Pick an agent here; click a pot to read its strategy above.</p>
+        <div class="chips" id="gChips"></div>
+        <div class="bed" id="bed"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="rules">
+  <div class="wrap">
+    <header class="part-h">
+      <span class="n">5</span>
+      <h2>Rules we keep</h2>
+    </header>
+    <div class="rules">
+      <div><h3>Motion</h3><ul><li>Slow. Most changes take 0.6 to 1.2 seconds and ease out.</li><li>Ambient loops last 20 seconds or more.</li><li>Anything that moves has a pause button.</li><li>Reduced motion turns it all off.</li></ul></div>
+      <div><h3>Color</h3><ul><li>No pure black, anywhere. Evening is indigo.</li><li>One highlight per view.</li><li>Brick red only for a claim that’s wrong.</li><li>Color always means something. The legend says what.</li></ul></div>
+      <div><h3>Type</h3><ul><li>18px body, 46px largest heading.</li><li>Figures in Atkinson Mono, tabular.</li><li>Sentence case everywhere.</li><li>Small caps only for labels.</li></ul></div>
+      <div><h3>Words</h3><ul><li>Plain words a family would use.</li><li>Dollars before percentages.</li><li>Say “simulated” wherever it is.</li><li>Name people by first name once we’ve met them.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="hills"></div>
+  <div class="wrap">
+    <div><b>tax-strategy-eval</b><p class="about">An eval of how much money an agent finds in a household’s taxes, and what it never looked at.</p></div>
+    <div><b>Benchmark</b><a href="index.html">Leaderboard</a><a href="office.html">Office</a><a href="methodology.html">Methodology</a><a href="design.html">Design notes</a></div>
+    <div><b>Project</b><a href="https://github.com/usernameNaN-debug/tax-strategy-eval">Code</a><a href="https://github.com/usernameNaN-debug/tax-strategy-eval/blob/main/CHANGELOG.md">Changelog</a></div>
+    <div class="base"><span>Simulated households, market and agents. Not tax advice.</span><span>Painted in a fragment shader and a few SVG filters.</span></div>
+  </div>
+</footer>
+
+<script type="module" src="app/design/main.js"></script>
+</body>
+</html>
