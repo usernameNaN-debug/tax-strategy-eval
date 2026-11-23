@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel office (retired) · Tax Strategy Eval</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="An agent gets one household's 2025 taxes and a building full of sources. We score the strategy in dollars and look at what it never opened.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;1,400&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='2' width='10' height='12' fill='%23f3eee4' stroke='%232b2521'/%3E%3Crect x='5' y='5' width='6' height='1' fill='%230F4D92'/%3E%3Crect x='5' y='8' width='4' height='1' fill='%232E6E4E'/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="./">tax-strategy-eval</a>
+  <nav>
+    <a href="#rollout">Rollout</a>
+    <a href="#strategy">Strategy</a>
+    <a href="#postmortem" class="hide-s">Postmortem</a>
+    <a href="#leaderboard">Leaderboard</a>
+    <a href="#notes" class="hide-s">Notes</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="toc" aria-label="Contents">
+    <div class="sec" id="toc">
+      <a href="#rollout">Rollout</a>
+      <a href="#strategy">Strategy</a>
+      <a href="#postmortem">Postmortem</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#notes">Notes</a>
+    </div>
+  </aside>
+
+  <main>
+    <h1 class="enter">What does an agent leave on the table?</h1>
+    <p class="lede enter">It's March 2026. A household hands over its 2025 paperwork, and an agent gets a building to work in: IRS publications, case law, employer portals, a basement of old returns, and a phone that rings the client. It reads, searches, asks, runs numbers, and writes a strategy. We score the strategy in dollars against the best one we know exists, then look at what it never opened.</p>
+    <p class="note enter">Everything on this page is simulated: the households, the market, and the agents. The tax law is real, 2025 rules including the July 2025 bill.</p>
+
+    <section id="rollout">
+      <h2>Rollout</h2>
+      <div class="households wide" id="households" role="group" aria-label="Household"></div>
+      <div class="agents" id="agents" role="group" aria-label="Agent"></div>
+      <div class="run">
+        <button class="pill go" id="go">Watch the rollout</button>
+        <button class="textbtn" id="tour">Tour the building</button>
+      </div>
+
+      <figure class="wide" id="stagefig">
+        <div class="stagebox">
+          <canvas id="stage" aria-label="The office building, and the agent working in it"></canvas>
+          <div class="tourcap" id="tourcap"><span id="tourtext"></span><span class="dots" id="tourdots"></span><button class="textbtn" id="tourskip">Skip</button></div>
+        </div>
+        <div class="controls">
+          <button class="play" id="play" aria-label="Play"><svg viewBox="0 0 14 14" id="playicon"><path d="M3 1.5v11l9-5.5z"/></svg></button>
+          <div class="speeds" role="group" aria-label="Speed">
+            <button class="pill" data-speed="1">1×</button><button class="pill" data-speed="2" aria-pressed="true">2×</button><button class="pill" data-speed="4">4×</button>
+          </div>
+          <div class="scrub"><svg id="ticks" preserveAspectRatio="none"></svg><input type="range" id="scrub" min="0" max="1000" value="0" step="1" aria-label="Time"></div>
+          <div class="readout num" id="readout"></div>
+        </div>
+        <div class="caption" id="caption"></div>
+      </figure>
+    </section>
+
+    <section id="strategy">
+      <h2>Strategy</h2>
+      <div id="report"><p class="waiting">The strategy shows up here when the agent submits it.</p></div>
+    </section>
+
+    <section id="postmortem">
+      <h2>Postmortem</h2>
+      <div id="pmwrap" hidden>
+        <figure class="wide">
+          <div class="stagebox"><canvas id="pm" aria-label="Postmortem map of the building"></canvas></div>
+          <div class="pmtools">
+            <button class="pill small" id="xray" aria-pressed="false">X-ray</button>
+            <button class="pill small" id="pmback" hidden>Whole building</button>
+            <span class="caption" id="pmcap" style="margin:0"></span>
+          </div>
+          <figcaption id="pmlegend"></figcaption>
+        </figure>
+        <h3>Where the chain broke</h3>
+        <div id="chain"></div>
+        <div class="pair">
+          <figure id="reach"></figure>
+          <figure id="anytime"></figure>
+        </div>
+      </div>
+      <p class="waiting" id="pmwait">After the rollout.</p>
+    </section>
+
+    <section id="leaderboard">
+      <h2>Leaderboard</h2>
+      <figure id="pareto"></figure>
+      <div id="board"></div>
+      <p class="note" id="boardnote"></p>
+    </section>
+
+    <section id="notes" class="notes">
+      <h2>Notes</h2>
+      <p><b>A rollout</b> is one agent working one household until it says it's done. That's dozens of tool calls (open a source, search a shelf, call the client, run the engine) and a written strategy at the end. We run one or two per agent per household. The second pass is optional: the strategy comes back with flags and the agent is told to grill its own work and resubmit. Many more rollouts than that is a post-training budget, not an eval budget.</p>
+      <p><b>Capability and disposition come apart.</b> Osprey recognizes an opportunity more reliably than anything else on the board once the facts are in front of it, and it finishes near the bottom. It rarely leaves the folder and almost never calls the client. The money in these households sits one or two hops from the papers the client hands over, and some of it is only in the client's head.</p>
+      <p><b>What counts as the agent's fault.</b> Every source in the building was available. If the agent never opened the box with the 2022 return in it, the amendment it didn't write is on the agent, not the client. The postmortem draws that directly: dotted outlines are sources that held money and were never touched.</p>
+      <p><b>Multi-agent.</b> The world exposes plain tools, and it doesn't care who calls them. A planner can fan out readers against the same building. The harness supports it; we don't test it here.</p>
+      <p><b>The numbers.</b> Each opportunity is the change in net federal tax from one engine, measured alone against a reference return, with FICA added where a payroll route applies. Values interact a little, so the best known strategy is a reference point rather than a sum you could always collect. The households and every value in them are generated by <code>scripts/py/build.py</code>; the JavaScript engine that grades in your browser is checked against it in CI.</p>
+      <p class="note"><a href="3d.html">A 3D sketch of the building</a> · <a href="https://github.com/usernameNaN-debug/tax-strategy-eval">Code</a></p>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <span id="version">v0.1.1</span>
+  <span>Simulated households, market and agents. Not tax advice.</span>
+</footer>
+
+<script type="module" src="app/main.js"></script>
+</body>
+</html>
